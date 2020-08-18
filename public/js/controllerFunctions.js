@@ -91,20 +91,6 @@ funcion.controllerUbicacion = (callback) => {
 }
 
 
-// funcion.controllerInsertEquipo = (id, tipo, plataforma, descripcion, periodo, id_ubicacion, fecha, periodoryr, fecha_verificacionryr, callback) => {
-
-//     db.query(`
-//     INSERT INTO equipo_info (equipo_id,equipo_tipo, equipo_plataforma, equipo_descripcion, equipo_periodo, equipo_ubicacion, fecha_verificacion, status, equipo_ryr, fecha_ryr)
-//     VALUES( '${id}','${tipo}', '${plataforma}','${descripcion}','${periodo}','${id_ubicacion}','${fecha}', 'Activo','${periodoryr}', '${fecha_verificacionryr}')`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
 
 funcion.controllerInsertEquipoN = (id,  plataforma, periodo,parte, ubicacion, fecha, callback) => {
 
@@ -151,19 +137,6 @@ funcion.controllerInsertMovimiento = (equipo_id, accion, req_empleado, aut_emple
 
 }
 
-// funcion.controllerUpdateEquipo = (id_equipo, id_ubicacion, callback) => {
-//     db.query(`UPDATE equipo_info SET 
-//     equipo_ubicacion= "${id_ubicacion}"
-//     WHERE equipo_id = "${id_equipo}"`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
 
 
 funcion.UpdateMandril = (id_mandril, plataforma,parte,ubicacion,periodo, callback) => {
@@ -183,61 +156,6 @@ funcion.UpdateMandril = (id_mandril, plataforma,parte,ubicacion,periodo, callbac
 
 }
 
-// funcion.controllerUpdateReqUbicacion = (id_equipo, ubicacion, callback) => {
-//     db.query(`UPDATE equipo_req
-//     SET ubicacion='${ubicacion}'
-//     WHERE equipo_id='${id_equipo}'
-//     ORDER BY mov_id DESC
-//     LIMIT 1`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
-
-
-
-// funcion.controllerUpdateEquipoInfo = (id_equipo, tipo, periodo, fecha, plataforma, descripcion, ubicacion, periodoryr, fecha_ryr, callback) => {
-//     db.query(`UPDATE equipo_info SET 
-//     equipo_tipo= IF('${tipo}' != "", '${tipo}', equipo_tipo),
-//     equipo_periodo= IF('${periodo}' != "", '${periodo}', equipo_periodo),
-//     fecha_verificacion= IF('${fecha}' != "", '${fecha}', fecha_verificacion),
-//     equipo_plataforma= IF('${plataforma}' != "", '${plataforma}', equipo_plataforma),
-//     equipo_descripcion= IF('${descripcion}' != "", '${descripcion}', equipo_descripcion),
-//     equipo_ubicacion= IF('${ubicacion}' != "", '${ubicacion}', equipo_ubicacion),
-//     equipo_ryr= IF('${periodoryr}' != "", '${periodoryr}', equipo_ryr),
-//     fecha_ryr= IF('${fecha_ryr}' != "", '${fecha_ryr}', fecha_ryr)
-//     WHERE equipo_id="${id_equipo}"
-//     `, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
-
-
-
-// funcion.controllerUpdateStatus = (id_equipo, callback) => {
-//     db.query(`UPDATE equipo_info SET 
-//     status= "Baja"
-//     WHERE equipo_id = "${id_equipo}"`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
 
 funcion.UpdateEntrada = (id,total,ubicacion, callback) => {
     db.query(`UPDATE equipo_stock SET 
@@ -297,20 +215,6 @@ funcion.getStockMandrilAlmacen = (mandril, ubicacion,callback) => {
     })
 
 }
-
-// funcion.controllerUpdateStatusActivo = (id_equipo, callback) => {
-//     db.query(`UPDATE equipo_info SET 
-//     status= "Activo"
-//     WHERE equipo_id = "${id_equipo}"`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-
-// }
 
 funcion.controllerUpdateFechaVerificacion = (id_equipo, columna, callback) => {
     db.query(`UPDATE equipo_info SET 
@@ -381,18 +285,6 @@ funcion.controllerTablaMandriles = (callback) => {
     })
 }
 
-// funcion.controllerTablaMandrilesDisponibles = (callback) => {
-//     db.query(`SELECT equipo_id, SUM (equipo_total) AS disponibles FROM equipo_stock
-//     WHERE (equipo_ubicacion != 7 AND equipo_ubicacion != 8) GROUP BY equipo_id`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-// }
-
 
 funcion.controllerTablaMandrilesDisponibles = (callback) => {
     db.query(`SELECT *, SUM (equipo_stock.equipo_total) AS disponibles FROM equipo_stock, equipo_info
@@ -449,20 +341,6 @@ funcion.controllerTablaInventario = (id,callback) => {
     })
 }
 
-// funcion.controllerTablaReubicar = (callback) => {
-//     db.query(`SELECT * FROM equipo_info
-//     WHERE (equipo_tipo=20)
-//     AND status='Activo'
-//     AND equipo_ubicacion=''
-//     ORDER BY equipo_id DESC`, function (err, result, fields) {
-//         if (err) {
-//             callback(err, null);
-//         } else {
-
-//             callback(null, result);
-//         }
-//     })
-// }
 
 funcion.controllerTablaEquipo = (status, callback) => {
     db.query(`SELECT * FROM equipo_info
