@@ -1,0 +1,165 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+
+<div class="col-md-10 col-lg-10-2 col-xl-11">
+    <div class="row">
+        <div class="box-header col-lg-1">
+                <br>
+            <h3 class="box-title">Mantenimiento</h3>
+            
+        </div>
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div class="col-lg-12">
+
+    </div>
+
+</div>
+<div class="table-responsive">
+<div class="containerTable">
+<!-- /.box-header -->
+<div class="table table-responsive" id="table">
+    <table id="myTable" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+
+            <th><span class="icoSidebar fas fa-history"></span> Entrada/Salida</th>
+            <th><span class="icoSidebar fas fa-history"></span> Mantenimientos</th>
+            <th><span class="icoSidebar fas fa-check"></span> Realizar</th>
+            <th><span class="icoSidebar fas fa-hashtag"></span> ID Mandril</th>
+                   
+                    <th><span class="icoSidebar fas fa-car"></span> Plataforma</th>
+
+                    <th><span class="icoSidebar fas fa-car"></span> Disponible</th>
+                    <!-- <th><span class="icoSidebar fas fa-car"></span> No Disponible</th>
+                    <th><span class="icoSidebar fas fa-car"></span> Dado de Baja</th> -->
+                    
+                    <!-- <th><span class="icoSidebar fas fa-calendar"></span> Periodo de Verificacion</th> -->
+                    <th><span class="icoSidebar fas fa-calendar-minus"></span> Ultimo Mantenimiento</th>
+                    <!-- <th><span class="icoSidebar fas fa-calendar-plus"></span> Proxima Verificacion</th> -->
+                    <th><span class="icoSidebar fas fa-stopwatch"></span> Proximo Mantenimiento</th>
+               
+
+        </thead>
+
+        <tbody>
+            <%if(data4) { %>
+            <% for (var i = 0; i < data4.length; i++) { %>
+                <%
+                let date = data4[i].fecha_verificacion
+                let formatted_date =  date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
+
+                let proxima_verificacion= new Date(date.setMonth(date.getMonth()+ data4[i].equipo_periodo));
+                let formatted_date2 = proxima_verificacion.getFullYear()+ "-" + (proxima_verificacion.getMonth() + 1) + "-" + proxima_verificacion.getDate() 
+
+                let formatted_date3
+                let proximoryr
+                let fecharyru = data4[i].fecha_ryr
+                if(fecharyru != null){
+                formatted_date3 =  fecharyru.getFullYear() + "-" + (fecharyru.getMonth() + 1) + "-" + fecharyru.getDate() 
+                proximoryr= new Date(fecharyru.setMonth(fecharyru.getMonth()+ data4[i].equipo_ryr));
+                }else{
+                    formatted_date3="";
+                    proximoryr="";
+                }
+               
+               
+                let endTime = new Date(proxima_verificacion);
+		        endTime = (Date.parse(endTime) / 1000);
+			    let now = new Date();
+			    now = (Date.parse(now) / 1000);
+			    let timeLeft = endTime - now;
+                let days = Math.floor(timeLeft / 86400); 
+                
+
+                let endTime2 = new Date(proximoryr);
+		        endTime2 = (Date.parse(endTime2) / 1000);
+			    let now2 = new Date();
+			    now2 = (Date.parse(now2) / 1000);
+			    let timeLeft2 = endTime2 - now2;
+			    let days2 = Math.floor(timeLeft2 / 86400); 
+                %>
+
+            <tr class="table_roww">
+                <td class="text-center" >
+                    <form method="POST">
+                        <button name="equipoid" type="submit" formaction="/historial"
+                            class="btn btn-dark text-center"><span class="icoWhite fas fa-exchange-alt"></button>
+                        <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                    </form>
+                   
+                </td>
+
+                <td class="text-center" >
+                    <form method="POST">
+                        <button name="equipoid" type="submit" formaction="/historial_mantenimiento"
+                            class="btn btn-secondary text-center"><span class="icoWhite fas fa-screwdriver"></button>
+                        <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                    </form>
+                   
+                </td>
+
+                <%
+                            if(days <=10 || days2 <=10){
+                               classBtn = "danger"
+                            }else if((days > 10  && days <= 15) || (days2 > 10  && days2 <= 15)){
+                                classBtn ="warning"
+                            }else{
+                                classBtn="success"
+                            }                  
+                %>
+
+                <td class="text-center" >
+                        <form method="POST">
+                            <button name="equipoid" type="submit" formaction="/verificar"
+                                class="btn btn-<%=classBtn%> text-center"><span class="icoWhite fas fa-check"></button>
+                            <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                            <input type="text" name="user" value="<%= data2%>" hidden >
+                         
+                        </form>
+                       
+                    </td>
+                <td class="table_id"><%= data4[i].equipo_id %></td>
+         
+                <td><%= data4[i].equipo_plataforma%></td>
+
+   
+                <td><%= data4[i].disponibles%></td>
+         
+               
+                <td><%= formatted_date %></td>
+
+                <td>
+                        <div class="time-elapsed"></div>
+                    <div id="timer" class="date_start_time" data-date-time="<%= proxima_verificacion  %>"></div>
+                </td>
+
+
+
+
+            </tr>
+          
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<% include ./static/footer %>
+</div>
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        w = document.getElementById("wrapper");
+        w.classList.add('toggled');
+
+    });
+</script>

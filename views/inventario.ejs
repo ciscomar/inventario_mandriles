@@ -1,0 +1,65 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+
+<div class="col-md-10 col-lg-10-2 col-xl-11">
+    <div class="row">
+        <div class="box-header col-lg-6">
+                <br>
+            <h3 class="box-title">Inventario del Mandril</h3>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div class="col-lg-12">
+
+    </div>
+
+</div>
+<div class="table-responsive">
+<div class="containerTable">
+<!-- /.box-header -->
+<div class="table table-responsive" id="table">
+    <table id="myTable" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+
+            <th><span class="icoSidebar fas fa-history"></span> ID Mandril</th>
+            <th><span class="icoSidebar fas fa-history"></span> Ubicacion</th>
+            <th><span class="icoSidebar fas fa-hashtag"></span> Total</th>
+          
+
+
+        </thead>
+
+        <tbody>
+            <%if(data) { %>
+            <% for (var i = 0; i < data.length; i++) { %>
+
+
+            <tr class="table_roww">
+
+                
+                <%if(data[i].equipo_total != 0) { %>
+                <td class="table_id"><%= data[i].equipo_id %></td>
+                <td><%= data[i].ubicacion%></td>
+                <td class="table_id"><%= data[i].equipo_total %></td>
+                <% }%>
+
+                  
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<% include ./static/footer %>
+</div>
+</body>
+
+</html>

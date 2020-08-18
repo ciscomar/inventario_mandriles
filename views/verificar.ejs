@@ -1,0 +1,924 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+<div class="col-md-12 col-lg-10-2">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <br>
+            <h3 class="box-title">Mantenimiento</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form action="/andon_guardad" method="POST">
+            <div class="box-body">
+
+                <!------->
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="Titulo">Realizado Por:</label>
+                        <input type="text" class="form-control" id="user" value="<%= data2%>" name="user" readonly>
+                    </div>
+
+
+                    <div class="form-group col-lg-3">
+                        <label for="Titulo">ID Mandril:</label>
+                        <input type="text" class="form-control" id="equipo" value="<%= data%>" name="equipo" readonly>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="Titulo">Cantidad:</label>
+                        <input type="number" class="form-control" id="cant" value="" name="cant" required>
+                    </div>
+                </div>
+
+                <label for="Titulo">Cuerpo de Mandril Libre de Filos:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK: </label> <label id="filomsg" name="message"> </label>
+                        <input type="number" class="form-control" id="filook" value="" name="filook" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="filonmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="filonok" value="" name="filonok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="filoact" value="" name="filoact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">Cuerpo de Mandril Libre de Golpes:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="golpmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="golpok" value="" name="golpok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="golpnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="golpnok" value="" name="golpnok" required>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="golpact" value="" name="golpact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">H Este en Buen Estado:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="hmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="hok" value="" name="hok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="hnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="hnok" value="" name="hnok" required>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="hact" value="" name="hact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+
+                <label for="Titulo">Soldadura de mandril con H:</label>
+                <div class="row">
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="smsg" name="message"> </label>
+                        <input type="number" class="form-control" id="soldok" value="" name="soldok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="snmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="soldnok" value="" name="soldnok" required>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="soldact" value="" name="soldact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">Estado de Tapa:</label>
+
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="tmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="tapaok" value="" name="tapaok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="tnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="tapanok" value="" name="tapanok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="tapaact" value="" name="tapaact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">Correcto funcionamiento del mecanismo de la tapa:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="mmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="mecanisok" value="" name="mecanisok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="mnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="mecanisnok" value="" name="mecanisnok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="mecanisact" value="" name="mecanisact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+
+                <label for="Titulo">Orientacion correcta del mandril:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="omsg" name="message"> </label>
+                        <input type="number" class="form-control" id="orientok" value="" name="orientok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="onmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="orientnok" value="" name="orientnok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="orientact" value="" name="orientact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">Estado de la Muesca (Si aplica) *Cuando el mandril no tiene muesca marcar
+                    ok:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="mumsg" name="message"> </label>
+                        <input type="number" class="form-control" id="muescok" value="" name="muescok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="munmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="muescnok" value="" name="muescnok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="muescact" value="" name="muescact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+
+                <label for="Titulo">Mandril libre de suciedad:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="sumsg" name="message"> </label>
+                        <input type="number" class="form-control" id="sucok" value="" name="sucok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="sunmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="sucnok" value="" name="sucnok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="sucact" value="" name="sucact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+                <label for="Titulo">Soldadura punto en boss:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="bmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="bossok" value="" name="bossok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="bnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="bossnok" value="" name="bossnok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="bossact" value="" name="bossact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="box-footer">
+                    <button id="btnguardar" type="submit" class="btn btn-primary"
+                        onclick="$('form').attr('action', '/guardar_mantenimiento');">Guardar</button>
+                </div>
+                <br>
+        </form>
+    </div>
+    <!-- /.box -->
+
+    <% include ./static/footer %>
+</div>
+</body>
+
+</html>
+
+
+
+<script>
+
+    $('form').submit(function (e) {
+
+
+
+        if ($('[name="message"]').hasClass('text-danger')) {
+
+            e.preventDefault();
+
+        } else {
+
+            $("#form").submit();
+            $(this).find("button[type='submit']").prop('disabled', true);
+
+        }
+
+    });
+
+
+
+    filook.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        fcant = parseInt($('#filook').val())
+        fcantn = parseInt($('#filonok').val())
+
+        console.log(fcantn);
+
+        var msg = document.getElementById("filomsg");
+
+        if (fcant > cantidad || ((fcant + fcantn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(fcantn)) {
+
+            if (fcant + fcantn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    filonok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        fcant = parseInt($('#filook').val())
+        fcantn = parseInt($('#filonok').val())
+
+        var msg = document.getElementById("filonmsg");
+
+        if (fcantn > cantidad || ((fcant + fcantn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(fcant)) {
+
+            if (fcant + fcantn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    golpok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        golp = parseInt($('#golpok').val())
+        golpn = parseInt($('#golpnok').val())
+
+        var msg = document.getElementById("golpmsg");
+
+        if (golp > cantidad || ((golp + golpn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(golpn)) {
+
+            if (golp + golpn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    golpnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        golp = parseInt($('#golpok').val())
+        golpn = parseInt($('#golpnok').val())
+
+        var msg = document.getElementById("golpnmsg");
+
+        if (golpn > cantidad || ((golp + golpn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(golp)) {
+
+            if (golp + golpn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+    hok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        h = parseInt($('#hok').val())
+        hn = parseInt($('#hnok').val())
+
+        var msg = document.getElementById("hmsg");
+
+        if (h > cantidad || ((h + hn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+
+        if (!isNaN(hn)) {
+
+            if (h + hn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    hnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        h = parseInt($('#hok').val())
+        hn = parseInt($('#hnok').val())
+
+        var msg = document.getElementById("hnmsg");
+
+        if (hn > cantidad || ((h + hn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(h)) {
+
+            if (h + hn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+    soldok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        s = parseInt($('#soldok').val())
+        sn = parseInt($('#soldnok').val())
+
+        var msg = document.getElementById("smsg");
+
+        if (s > cantidad || ((s + sn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(sn)) {
+
+            if (s + sn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    soldnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        s = parseInt($('#soldok').val())
+        sn = parseInt($('#soldnok').val())
+
+        var msg = document.getElementById("snmsg");
+
+        if (sn > cantidad || ((s + sn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(s)) {
+
+            if (s + sn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+    tapaok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        t = parseInt($('#tapaok').val())
+        tn = parseInt($('#tapanok').val())
+
+        var msg = document.getElementById("tmsg");
+
+        if (t > cantidad || ((t + tn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(tn)) {
+
+            if (t + tn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    tapanok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        t = parseInt($('#tapaok').val())
+        tn = parseInt($('#tapanok').val())
+
+        var msg = document.getElementById("tnmsg");
+
+        if (tn > cantidad || ((t + tn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(t)) {
+
+            if (t + tn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    mecanisok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        m = parseInt($('#mecanisok').val())
+        mn = parseInt($('#mecanisnok').val())
+
+        var msg = document.getElementById("mmsg");
+
+        if (m > cantidad || ((m + mn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(mn)) {
+
+            if (m + mn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    mecanisnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        m = parseInt($('#mecanisok').val())
+        mn = parseInt($('#mecanisnok').val())
+
+        var msg = document.getElementById("mnmsg");
+
+        if (mn > cantidad || ((m + mn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(m)) {
+
+            if (m + mn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+    orientok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        o = parseInt($('#orientok').val())
+        on = parseInt($('#orientnok').val())
+
+        var msg = document.getElementById("omsg");
+
+        if (o > cantidad || ((o + on) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(on)) {
+
+            if (o + on != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    orientnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        o = parseInt($('#orientok').val())
+        on = parseInt($('#orientnok').val())
+
+        var msg = document.getElementById("onmsg");
+
+        if (on > cantidad || ((o + on) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(o)) {
+
+            if (o + on != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+    muescok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        mu = parseInt($('#muescok').val())
+        mun = parseInt($('#muescnok').val())
+
+        var msg = document.getElementById("mumsg");
+
+        if (mu > cantidad || ((mu + mun) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(mun)) {
+
+            if (mu + mun != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    muescnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        mu = parseInt($('#muescok').val())
+        mun = parseInt($('#muescnok').val())
+
+        var msg = document.getElementById("munmsg");
+
+        if (mun > cantidad || ((mu + mun) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(mu)) {
+
+            if (mu + mun != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    sucok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        su = parseInt($('#sucok').val())
+        sun = parseInt($('#sucnok').val())
+
+        var msg = document.getElementById("sumsg");
+
+        if (su > cantidad || ((su + sun) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(sun)) {
+
+            if (su + sun != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    sucnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        su = parseInt($('#sucok').val())
+        sun = parseInt($('#sucnok').val())
+
+        var msg = document.getElementById("sunmsg");
+
+        if (sun > cantidad || ((su + sun) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(su)) {
+
+            if (su + sun != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
+
+    bossok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        b = parseInt($('#bossok').val())
+        bn = parseInt($('#bossnok').val())
+
+        var msg = document.getElementById("bmsg");
+
+        if (b > cantidad || ((b + bn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(bn)) {
+
+            if (b + bn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+
+    bossnok.addEventListener("keyup", function (e) {
+
+        cantidad = parseInt($('#cant').val())
+        b = parseInt($('#bossok').val())
+        bn = parseInt($('#bossnok').val())
+
+        var msg = document.getElementById("bnmsg");
+
+        if (bn > cantidad || ((b + bn) > cantidad)) {
+
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+
+
+        } else {
+            msg.innerHTML = ""
+            msg.classList.remove('text-danger');
+        }
+
+        if (!isNaN(b)) {
+
+            if (b + bn != cantidad) {
+                msg.innerHTML = " Cantidad Incorrecta"
+                msg.classList.add('text-danger');
+            }
+        }
+
+    })
+
+</script>

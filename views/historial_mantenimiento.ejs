@@ -1,0 +1,76 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+
+<div class="col-md-10 col-lg-10-2 col-xl-11">
+        <br>
+    <h3 class="box-title">Historial de Mantenimientos </h3>
+    <div class="row">
+        <div class="box-header col-lg-1">
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- /.box-header -->
+<div class="table-responsive">
+<div class="containerTable">
+<div class="table table-responsive" id="table">
+    <table id="myTable" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+
+            <th>Consulta</th>
+            <th>ID Mandril</th>
+            <th>Verificado Por</th>
+            <th>Fecha</th>
+
+        </thead>
+
+        <tbody>
+            <%if(data) { %>
+            <% for (var i = 0; i < data.length; i++) { %>
+
+                <%
+                let date = data[i].fecha
+                let formatted_date =  date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
+                %>
+
+
+            <tr class="table_roww">
+
+
+                <td class="text-center" >
+                    <form method="POST">
+                        <button name="equipoid" type="submit" formaction="/verificar_consulta"
+                            class="btn btn-danger text-center"><span class="icoWhite fas fa-file-pdf"></button>
+                        <input type="text" name="idverif" value="<%= data[i].verif_id %>" hidden>
+   
+                    </form>
+                   
+                </td>
+
+
+
+
+                <td class="table_id"><%= data[i].equipo_id %></td>
+                <td><%= data[i].emp_id%></td>
+                <td><%= formatted_date %></td>
+
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+<% include ./static/footer %>
+</div>
+</body>
+
+</html>

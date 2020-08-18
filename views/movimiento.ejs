@@ -1,0 +1,377 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+<div class="col-md-6 col-lg-10-2">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <br>
+            <h3 class="box-title">Entrada / Salida</h3>
+            <br>
+        </div>
+        <div class="alert alert-success text-center mt-1" id='success-alert' role="alert" hidden>
+            <span>Movimiento Guardado</span>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form action="/andon_guardad" method="POST">
+            <div class="box-body">
+
+                <!------->
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Autorizado Por:</label>
+                        <input type="text" class="form-control" id="aut_empleado" value="<%= data4 %> - <%= data6 %>"
+                            name="aut_empleado" readonly>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Solicitado Por: </label><label id="req_empleadolabel"></label>
+                        <input type="text" class="form-control" id="req_empleado" name="req_empleado" required>
+                    </div>
+                </div>
+
+                <!------->
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">ID Mandril: </label> <label id="msg"> </label>
+                        <input type="text" class="form-control" id="id_equipo" name="id_equipo" required>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Ubicacion Almacen: </label> <label id=""> </label>
+                        <input type="text" class="form-control" id="almacen" name="almacen" readonly>
+                    </div>
+
+                </div>
+                <!------->
+                <div class="row">
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo" id="lblaccion">Accion:</label>
+                        <select class="form-control" name="accion" id="accion" required>
+                            <option value="" selected>Seleccionar</option>
+                            <option id="entrada">Entrada</option>
+                            <option id="salida">Salida</option>
+
+                        </select>
+                    </div>
+
+
+
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo" id="lblubicacion">Destino:</label>
+                        <select class="form-control" name="ubicacion" id="ubicacion" required>
+                            <option value="" selected>Seleccionar</option>
+                            <% for (var i = 0; i < data2.length; i++) { %>
+                            <option value="<%= data2[i].ubicacion_id %>" id="<%= data2[i].ubicacion %>">
+                                <%= data2[i].ubicacion %></option>
+                            <% } %>
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Total: </label> <label id="lbltotal"> </label>
+                        <input type="text" class="form-control" id="totalm" name="totalm" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Descripcion">Comentario:</label>
+                    <textarea type="text" class="form-control " rows="3" name="comentario"></textarea>
+                </div>
+
+                <div class="box-footer ">
+                    <button id="btnguardar" type="submit" class="btn btn-primary col-lg-12"
+                        onclick="$('form').attr('action', '/guardar_movimiento');" disabled>Guardar</button>
+                </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+    <% include ./static/footer %>
+</div>
+</body>
+
+</html>
+
+<script>
+    //////////////////////////////////////////////////////////////////////////////
+
+    document.getElementById("req_empleado").focus();
+
+    //////////////////////////////////////////////////////////////////////////////
+    id_equipo.addEventListener("keyup", function (e) {
+        equipo = <%- JSON.stringify(data5) %>;
+        jaula = <%- JSON.stringify(data2) %>;
+
+        var msg = document.getElementById("msg");
+        var idin = document.getElementById("id_equipo");
+
+        var id = $('#id_equipo').val();
+
+        $('#accion').val("")
+        $('#ubicacion').val("")
+        $('#totalm').val("")
+        $('#almacen').val("")
+
+
+        for (var i = 0; i < equipo.length; i++) {
+            if (id == equipo[i].equipo_id) {
+
+
+                $('#btnguardar').prop("disabled", false);
+                msg.innerHTML = ' Correcto';
+                idin.classList.remove('border-danger');
+                msg.classList.remove('text-danger');
+                msg.classList.add('text-success');
+                idin.classList.add('border-success');
+
+                /////////////////AJAX
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', `/consulta_mandril/${$('#id_equipo').val()}`, true);
+                xhr.onload = function () {
+                    if (this.status == 200) {
+                        info = JSON.parse(this.responseText)
+
+                        $('#almacen').val(info[0].equipo_ubic)
+
+                    }
+
+                }
+                xhr.onerror = function () {
+                    console.log('Request Error...');
+                }
+
+                xhr.send();
+                /////////////////
+
+
+                break;
+
+            } else {
+
+                $('#btnguardar').prop("disabled", true);
+                msg.innerHTML = ' No Registrado';
+                msg.classList.add('text-danger');
+                idin.classList.add('border-danger');
+
+            }
+        }
+
+    });
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+
+    req_empleado.addEventListener("keyup", function (e) {
+        empleados = <%- JSON.stringify(data3) %>;
+        var escaneado = $('#req_empleado').val();
+        let gafete;
+        if (escaneado.length == 9) {
+
+            if (escaneado[0] == 1 && escaneado[1] == 2 && escaneado[2] != 0) {
+                gafete = escaneado.substring(2, 8);
+                $('#user').val(gafete);
+
+            } else if (escaneado[0] == 1 && escaneado[1] == 2 && escaneado[2] == 0) {
+                gafete = escaneado.substring(3, 8);
+                $('#user').val(gafete);
+            }
+
+        } else {
+            gafete = escaneado
+            $('#user').val(gafete);
+        }
+
+        for (var i = 0; i < empleados.length; i++) {
+            if (gafete == empleados[i].emp_id) {
+
+                $('#req_empleado').val(empleados[i].emp_id + ' - ' + empleados[i].emp_nombre);
+                $('#req_empleado').prop("readonly", true);
+                $('#btnguardar').prop("disabled", false);
+                document.getElementById("id_equipo").focus();
+                break;
+
+            } else {
+
+                $('#btnguardar').prop("disabled", true);
+            }
+        }
+
+
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    $(document).ready(function () {
+        nuevo = <%- JSON.stringify(data7) %>;
+
+        if (nuevo == 'true') {
+            $('#success-alert').prop("hidden", false);
+            $("#success-alert").show()
+            setTimeout(function () {
+                $("#success-alert").slideUp(1000);
+            }, 1000);
+        }
+    });
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    let info
+    accion.addEventListener("change", function (e) {
+
+
+        $("#ubicacion").val("")
+        $("#totalm").val("")
+
+
+
+        if ($("#accion").val() == "Entrada") {
+
+            $("#lblubicacion").text("Origen:")
+
+
+
+            for (let i = 0; i < info.length; i++) {
+
+
+                if (info[i].equipo_total == 0) {
+                    $(`select[name*="ubicacion"] option[id="${info[i].ubicacion}"]`).hide();
+                } else {
+                    $(`select[name*="ubicacion"] option[id="${info[i].ubicacion}"]`).show();
+                }
+            }
+            $('select[name*="ubicacion"] option[id="Mandriles"]').hide();
+
+
+        } else {
+
+            $("#lblubicacion").text("Destino:")
+            for (let y = 0; y < info.length; y++) {
+                if (info[y].ubicacion == "Mandriles") {
+                    if (info[y].equipo_total == 0) {
+                        for (let i = 0; i < info.length; i++) {
+
+
+                            $(`select[name*="ubicacion"] option[id="${info[i].ubicacion}"]`).hide();
+                        }
+                    } else {
+
+                        for (let x = 0; x < info.length; x++) {
+
+
+                            $(`select[name*="ubicacion"] option[id="${info[x].ubicacion}"]`).show();
+
+                        }
+
+                        $('select[name*="ubicacion"] option[id="Mandriles"]').hide();
+                        $('select[name*="ubicacion"] option[id="Dado de Baja"]').hide();
+
+                    }
+                }
+            }
+
+        }
+
+    });
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    totalm.addEventListener("keyup", function (e) {
+
+        cantidad = $("#totalm").val()
+        accion = $("#accion").val()
+        var msg = document.getElementById("lbltotal");
+        var idin = document.getElementById("totalm");
+
+
+        if (cantidad != "") {
+
+            for (let i = 0; i < info.length; i++) {
+                if (accion == "Entrada") {
+
+
+                    if ($("#ubicacion").val() == info[i].equipo_ubicacion) {
+
+
+                        if (cantidad <= info[i].equipo_total) {
+
+                            msg.innerHTML = " Correcto"
+                            idin.classList.remove('border-danger');
+                            msg.classList.remove('text-danger');
+                            msg.classList.add('text-success');
+                            idin.classList.add('border-success');
+                            $('#btnguardar').prop("disabled", false);
+
+                            break
+
+                        } else {
+
+                            msg.innerHTML = " Cantidad Incorrecta"
+                            msg.classList.add('text-danger');
+                            idin.classList.add('border-danger');
+                            $('#btnguardar').prop("disabled", true);
+
+
+                        }
+                    }
+                } else {
+
+
+                    for (let i = 0; i < info.length; i++) {
+
+                        if (info[i].ubicacion == "Mandriles") {
+
+                            if (cantidad <= info[i].equipo_total) {
+
+                                msg.innerHTML = " Correcto"
+                                idin.classList.remove('border-danger');
+                                msg.classList.remove('text-danger');
+                                msg.classList.add('text-success');
+                                idin.classList.add('border-success');
+                                $('#btnguardar').prop("disabled", false);
+
+                                break
+
+                            } else {
+
+                                msg.innerHTML = " Cantidad Incorrecta"
+                                msg.classList.add('text-danger');
+                                idin.classList.add('border-danger');
+                                $('#btnguardar').prop("disabled", true);
+
+
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+            }
+        } else {
+            idin.classList.remove('border-danger');
+            msg.classList.remove('text-danger');
+            msg.innerHTML = " Cantidad Incorrecta"
+            msg.classList.add('text-danger');
+            idin.classList.add('border-danger');
+            $('#btnguardar').prop("disabled", true);
+
+        }
+
+
+
+
+
+    });
+
+/////////////////////////////////////////////////////////////////////////////////////////
+</script>
