@@ -46,7 +46,7 @@
                         <select class="form-control" name="mandril" id="mandril">
                             <option value="" selected>Seleccionar</option>
                             <% for (var i = 0; i < data8.length; i++) { %>
-                            <option><%= data8[i].equipo_id %></option>
+                            <option><%= data8[i].mandril_id %></option>
                             <% } %>
                         </select>
                     </div>
@@ -173,7 +173,7 @@
 
                     if (info[i].ubicacion == "Mandriles") {
 
-                        if (cantidad <= info[i].equipo_total) {
+                        if (cantidad <= info[i].mandril_total) {
 
                             msg.innerHTML = " Correcto"
                             idin.classList.remove('border-danger');
@@ -225,7 +225,7 @@
 
 
     //     for (var i = 0; i < equipo.length; i++) {
-    //         if (id == equipo[i].equipo_id) {
+    //         if (id == equipo[i].mandril_id) {
 
     //             $('#btnguardar').prop("disabled", true);
     //             msg.innerHTML = ' Ya registrado';

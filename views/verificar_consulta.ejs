@@ -48,7 +48,7 @@
 
                     <div class="form-group col-lg-3">
                         <label for="Titulo">ID Mandril:</label>
-                        <input type="text" class="form-control" id="equipo" value="<%=data.equipo_id%>" name="equipo" readonly>
+                        <input type="text" class="form-control" id="equipo" value="<%=data.mandril_id%>" name="equipo" readonly>
                     </div>
                 </div>
 
@@ -326,7 +326,7 @@ function printJSPDF() {
         doc.setFontSize(8)
         doc.setFontType('normal')
         doc.text(30, 45, 'MANDRIL:_____________________')
-        doc.text(50, 45, '<%=data.equipo_id%>')
+        doc.text(50, 45, '<%=data.mandril_id%>')
         
 
         doc.setFontSize(8)
@@ -439,7 +439,7 @@ function printJSPDF() {
 
         doc.setFontSize(8)
         doc.setFontType('normal') 
-        doc.text(180, 190, 'FECHA PROGRAMADA:_____________________')
+        doc.text(180, 190, 'FECHA DE REALIZACION:_____________________')
         doc.text(220, 190, '<%=fechaAltaFormatted%>')
 
 

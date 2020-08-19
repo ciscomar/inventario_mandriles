@@ -13,7 +13,7 @@ controller.index_GET = (req, res) => {
 };
 
 
-controller.crear_equipo_GET = (req, res) => {
+controller.crear_mandril_GET = (req, res) => {
     res.render('login.ejs');
 };
 
@@ -88,7 +88,7 @@ controller.login = (req, res) => {
 }
 
 
-controller.crear_equipo_POST = (req, res) => {
+controller.crear_mandril_POST = (req, res) => {
 
     numeroEmpleado = req.body.user;
     nuevo = "false"
@@ -139,7 +139,7 @@ controller.alta_baja_POST = (req, res) => {
 
 
 
-controller.guardar_equipo_POST = (req, res) => {
+controller.guardar_mandril_POST = (req, res) => {
 
     let id = (req.body.id)
     let plataforma = (req.body.plataforma)
@@ -263,7 +263,7 @@ controller.guardar_movimiento_POST = (req, res) => {
 
     aut_empleado = (req.body.aut_empleado)
     req_empleado = (req.body.req_empleado)
-    equipo_id = (req.body.id_equipo)
+    mandril_id = (req.body.id_equipo)
     accion = (req.body.accion)
     ubicacion = (req.body.ubicacion)
     comentario = (req.body.comentario)
@@ -274,23 +274,23 @@ controller.guardar_movimiento_POST = (req, res) => {
     nuevo = 'true'
 
 
-    funcion.controllerInsertMovimiento(equipo_id, accion, req_empleado, aut_empleado, ubicacion, totalm, comentario, (err, result) => {
+    funcion.controllerInsertMovimiento(mandril_id, accion, req_empleado, aut_empleado, ubicacion, totalm, comentario, (err, result) => {
         if (err) throw err;
 
         if (accion == "Entrada") {
-            funcion.UpdateEntrada(equipo_id, totalm, 1, (err, result) => {
+            funcion.UpdateEntrada(mandril_id, totalm, 1, (err, result) => {
                 if (err) throw err;
             });
-            funcion.UpdateSalida(equipo_id, totalm, ubicacion, (err, result) => {
+            funcion.UpdateSalida(mandril_id, totalm, ubicacion, (err, result) => {
                 if (err) throw err;
             });
 
         } else {
 
-            funcion.UpdateEntrada(equipo_id, totalm, ubicacion, (err, result) => {
+            funcion.UpdateEntrada(mandril_id, totalm, ubicacion, (err, result) => {
                 if (err) throw err;
             });
-            funcion.UpdateSalida(equipo_id, totalm, 1, (err, result) => {
+            funcion.UpdateSalida(mandril_id, totalm, 1, (err, result) => {
                 if (err) throw err;
             });
 
@@ -313,7 +313,7 @@ controller.guardar_movimiento_POST = (req, res) => {
 
                     if (ubicacion == 7) {
 
-                        funcion.InfoMandrilEmail(equipo_id, (err, mandrilInfo) => {
+                        funcion.InfoMandrilEmail(mandril_id, (err, mandrilInfo) => {
 
                             funcion.controllerCorreosAll((err, correo) => {
                                 for (var i = 0; i < correo.length; i++) {
@@ -321,11 +321,11 @@ controller.guardar_movimiento_POST = (req, res) => {
 
                                     to = correo[i].correo;
                                     cc = '';
-                                    subject = 'Almacen de Mandriles: #' + equipo_id + ' Parte: ' + mandrilInfo.equipo_parte + ' Plataforma: ' + mandrilInfo.equipo_plataforma
+                                    subject = 'Almacen de Mandriles: #' + mandril_id + ' Parte: ' + mandrilInfo.mandril_parte + ' Plataforma: ' + mandrilInfo.mandril_plataforma
                                     status = 'Mandril No Disponible';
-                                    id = equipo_id
-                                    parte = mandrilInfo.equipo_parte
-                                    plataforma = mandrilInfo.equipo_plataforma
+                                    id = mandril_id
+                                    parte = mandrilInfo.mandril_parte
+                                    plataforma = mandrilInfo.mandril_plataforma
                                     user = nombre
                                     comentario = comentario
                                     color = '#ff0000'
@@ -357,7 +357,7 @@ controller.guardar_movimiento_cedula_POST = (req, res) => {
 
 
     aut_empleado = req.body.aut_empleado
-    equipo_id = req.body.id_equipo
+    mandril_id = req.body.id_equipo
     accion = req.body.accion
     comentario = req.body.comentario
     mandriles = req.body.mandriles
@@ -459,9 +459,9 @@ controller.no_disponibles_GET = (req, res) => {
 
 controller.inventario_POST = (req, res) => {
 
-    equipo_id = req.body.equipo_id2;
+    mandril_id = req.body.mandril_id2;
 
-    funcion.controllerTablaInventario(equipo_id, (err, result) => {
+    funcion.controllerTablaInventario(mandril_id, (err, result) => {
         if (err) throw err;
 
 
@@ -478,9 +478,9 @@ controller.inventario_POST = (req, res) => {
 
 controller.historial_POST = (req, res) => {
 
-    equipo_id = (req.body.equipo_id2);
+    mandril_id = (req.body.mandril_id2);
 
-    funcion.controllerHistorialEquipo(equipo_id, (err, result) => {
+    funcion.controllerHistorialEquipo(mandril_id, (err, result) => {
         if (err) throw err;
 
 
@@ -494,9 +494,9 @@ controller.historial_POST = (req, res) => {
 
 controller.historial_mantenimiento_POST = (req, res) => {
 
-    equipo_id = (req.body.equipo_id2);
+    mandril_id = (req.body.mandril_id2);
 
-    funcion.controllerHistorialVerificacion(equipo_id, (err, result) => {
+    funcion.controllerHistorialVerificacion(mandril_id, (err, result) => {
         if (err) throw err;
 
         res.render('historial_mantenimiento.ejs', {
@@ -532,7 +532,7 @@ controller.verificacion_POST = (req, res) => {
 
 
 controller.verificar_POST = (req, res) => {
-    equipo = req.body.equipo_id2;
+    equipo = req.body.mandril_id2;
     user = req.body.user;
     fecharyr = req.body.fecharyr
 

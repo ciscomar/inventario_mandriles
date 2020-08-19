@@ -120,7 +120,7 @@
 
 
         for (var i = 0; i < equipo.length; i++) {
-            if (id == equipo[i].equipo_id) {
+            if (id == equipo[i].mandril_id) {
 
 
                 $('#btnguardar').prop("disabled", false);
@@ -137,7 +137,7 @@
                     if (this.status == 200) {
                         info = JSON.parse(this.responseText)
 
-                        $('#almacen').val(info[0].equipo_ubic)
+                        $('#almacen').val(info[0].mandril_ubic)
 
                     }
 
@@ -239,7 +239,7 @@
             for (let i = 0; i < info.length; i++) {
 
 
-                if (info[i].equipo_total == 0) {
+                if (info[i].mandril_total == 0) {
                     $(`select[name*="ubicacion"] option[id="${info[i].ubicacion}"]`).hide();
                 } else {
                     $(`select[name*="ubicacion"] option[id="${info[i].ubicacion}"]`).show();
@@ -253,7 +253,7 @@
             $("#lblubicacion").text("Destino:")
             for (let y = 0; y < info.length; y++) {
                 if (info[y].ubicacion == "Mandriles") {
-                    if (info[y].equipo_total == 0) {
+                    if (info[y].mandril_total == 0) {
                         for (let i = 0; i < info.length; i++) {
 
 
@@ -297,10 +297,10 @@
                 if (accion == "Entrada") {
 
 
-                    if ($("#ubicacion").val() == info[i].equipo_ubicacion) {
+                    if ($("#ubicacion").val() == info[i].mandril_ubicacion) {
 
 
-                        if (cantidad <= info[i].equipo_total) {
+                        if (cantidad <= info[i].mandril_total) {
 
                             msg.innerHTML = " Correcto"
                             idin.classList.remove('border-danger');
@@ -328,7 +328,7 @@
 
                         if (info[i].ubicacion == "Mandriles") {
 
-                            if (cantidad <= info[i].equipo_total) {
+                            if (cantidad <= info[i].mandril_total) {
 
                                 msg.innerHTML = " Correcto"
                                 idin.classList.remove('border-danger');

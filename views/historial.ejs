@@ -40,7 +40,7 @@
 
                 <%
                 let date = data[i].fecha
-                date.setHours(date.getHours()-7);
+                date.setHours(date.getHours()-6);
                 var myDate_string = date.toISOString();
                 var myDate_string = myDate_string.replace("T","  Hora: ");
                 var myDate_string = myDate_string.substring(0, myDate_string.length - 5);
@@ -49,7 +49,7 @@
 
             <tr class="table_roww">
 
-                <td class="table_id"><%= data[i].equipo_id %></td>
+                <td class="table_id"><%= data[i].mandril_id %></td>
                 <td><%= data[i].accion%></td>
                 <td><%= data[i].emp_aut %></td>
                 <td><%= data[i].emp_req%></td>

@@ -42,7 +42,7 @@
         <tbody>
             <%if(data3) { %>
             <% for (var i = 0; i < data3.length; i++) { %>
-                <%if(data3[i].equipo_total != 0) { %>
+                <%if(data3[i].mandril_total != 0) { %>
                
 
             <tr class="table_roww">
@@ -50,7 +50,7 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/historial"
                             class="btn btn-dark text-center"><span class="icoWhite fas fa-exchange-alt"></button>
-                        <input type="text" name="equipo_id2" value="<%=data3[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data3[i].mandril_id%>" hidden>
                     </form>
                 </td>
 
@@ -58,13 +58,13 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/inventario"
                             class="btn btn-success text-center"><span class="icoWhite fas fa-list"></button>
-                        <input type="text" name="equipo_id2" value="<%=data3[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data3[i].mandril_id%>" hidden>
                     </form>
                 </td>
-                <td class="table_id"><%= data3[i].equipo_id %></td>
-                <td><%= data3[i].equipo_plataforma%></td>
-                <td><%= data3[i].equipo_parte%></td>
-                <td><%= data3[i].equipo_total%></td>
+                <td class="table_id"><%= data3[i].mandril_id %></td>
+                <td><%= data3[i].mandril_plataforma%></td>
+                <td><%= data3[i].mandril_parte%></td>
+                <td><%= data3[i].mandril_total%></td>
 
 
 

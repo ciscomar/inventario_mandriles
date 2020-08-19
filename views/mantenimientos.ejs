@@ -54,7 +54,7 @@
                 let date = data4[i].fecha_verificacion
                 let formatted_date =  date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
 
-                let proxima_verificacion= new Date(date.setMonth(date.getMonth()+ data4[i].equipo_periodo));
+                let proxima_verificacion= new Date(date.setMonth(date.getMonth()+ data4[i].mandril_periodo));
                 let formatted_date2 = proxima_verificacion.getFullYear()+ "-" + (proxima_verificacion.getMonth() + 1) + "-" + proxima_verificacion.getDate() 
 
                 let formatted_date3
@@ -62,7 +62,7 @@
                 let fecharyru = data4[i].fecha_ryr
                 if(fecharyru != null){
                 formatted_date3 =  fecharyru.getFullYear() + "-" + (fecharyru.getMonth() + 1) + "-" + fecharyru.getDate() 
-                proximoryr= new Date(fecharyru.setMonth(fecharyru.getMonth()+ data4[i].equipo_ryr));
+                proximoryr= new Date(fecharyru.setMonth(fecharyru.getMonth()+ data4[i].mandril_ryr));
                 }else{
                     formatted_date3="";
                     proximoryr="";
@@ -90,7 +90,7 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/historial"
                             class="btn btn-dark text-center"><span class="icoWhite fas fa-exchange-alt"></button>
-                        <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data4[i].mandril_id%>" hidden>
                     </form>
                    
                 </td>
@@ -99,13 +99,13 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/historial_mantenimiento"
                             class="btn btn-secondary text-center"><span class="icoWhite fas fa-screwdriver"></button>
-                        <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data4[i].mandril_id%>" hidden>
                     </form>
                    
                 </td>
 
                 <%
-                            if(days <=10 || days2 <=10){
+                            if(days <=1 || days2 <=1){
                                classBtn = "danger"
                             }else if((days > 10  && days <= 15) || (days2 > 10  && days2 <= 15)){
                                 classBtn ="warning"
@@ -118,15 +118,15 @@
                         <form method="POST">
                             <button name="equipoid" type="submit" formaction="/verificar"
                                 class="btn btn-<%=classBtn%> text-center"><span class="icoWhite fas fa-check"></button>
-                            <input type="text" name="equipo_id2" value="<%=data4[i].equipo_id%>" hidden>
+                            <input type="text" name="mandril_id2" value="<%=data4[i].mandril_id%>" hidden>
                             <input type="text" name="user" value="<%= data2%>" hidden >
                          
                         </form>
                        
                     </td>
-                <td class="table_id"><%= data4[i].equipo_id %></td>
+                <td class="table_id"><%= data4[i].mandril_id %></td>
          
-                <td><%= data4[i].equipo_plataforma%></td>
+                <td><%= data4[i].mandril_plataforma%></td>
 
    
                 <td><%= data4[i].disponibles%></td>

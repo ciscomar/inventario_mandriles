@@ -44,7 +44,7 @@
                         <select class="form-control" name="id_mandril" id="id_mandril">
                             <option value="" selected>Seleccionar</option>
                             <% for (var i = 0; i < data.length; i++) { %>
-                            <option><%= data[i].equipo_id %></option>
+                            <option><%= data[i].mandril_id %></option>
                             <% } %>
                         </select>
                     </div>
@@ -179,10 +179,10 @@
             if (this.status == 200) {
                 info = JSON.parse(this.responseText)
 
-                $('#plataforma').val(info[0].equipo_plataforma)
-                $('#parte').val(info[0].equipo_parte)
-                $('#ubicacion').val(info[0].equipo_ubic)
-                $('#periodo').val(info[0].equipo_periodo)
+                $('#plataforma').val(info[0].mandril_plataforma)
+                $('#parte').val(info[0].mandril_parte)
+                $('#ubicacion').val(info[0].mandril_ubic)
+                $('#periodo').val(info[0].mandril_periodo)
 
 
 

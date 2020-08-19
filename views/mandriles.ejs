@@ -49,7 +49,7 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/historial"
                             class="btn btn-dark text-center"><span class="icoWhite fas fa-exchange-alt"></button>
-                        <input type="text" name="equipo_id2" value="<%=data2[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data2[i].mandril_id%>" hidden>
                     </form>
                 </td>
 
@@ -57,12 +57,12 @@
                     <form method="POST">
                         <button name="equipoid" type="submit" formaction="/inventario"
                             class="btn btn-success text-center"><span class="icoWhite fas fa-list"></button>
-                        <input type="text" name="equipo_id2" value="<%=data2[i].equipo_id%>" hidden>
+                        <input type="text" name="mandril_id2" value="<%=data2[i].mandril_id%>" hidden>
                     </form>
                 </td>
-                <td class="table_id"><%= data2[i].equipo_id %></td>
-                <td><%= data2[i].equipo_plataforma%></td>
-                <td><%= data2[i].equipo_parte%></td>
+                <td class="table_id"><%= data2[i].mandril_id %></td>
+                <td><%= data2[i].mandril_plataforma%></td>
+                <td><%= data2[i].mandril_parte%></td>
                 <td><%= data2[i].disponibles%></td>
 
 

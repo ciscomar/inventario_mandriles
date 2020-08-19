@@ -42,7 +42,7 @@ funcion.sendEmail = (dataEmail) => {
 
 funcion.controllerCorreosAll = ( callback) => {
 
-    db.query(`SELECT correo FROM equipo_notificar`, function (err, result, fields) {
+    db.query(`SELECT correo FROM mandril_notificar`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -66,7 +66,7 @@ funcion.controllerPlataforma = (callback) => {
 
 
 funcion.controllerMandriles = (callback) => {
-    db.query(`SELECT * FROM equipo_info`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -80,7 +80,7 @@ funcion.controllerMandriles = (callback) => {
 
 
 funcion.controllerUbicacion = (callback) => {
-    db.query(`SELECT * FROM equipo_ubicacion`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_ubicacion`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -95,7 +95,7 @@ funcion.controllerUbicacion = (callback) => {
 funcion.controllerInsertEquipoN = (id,  plataforma, periodo,parte, ubicacion, fecha, callback) => {
 
     db.query(`
-    INSERT INTO equipo_info (equipo_id, equipo_plataforma,  equipo_periodo, equipo_parte, equipo_ubic, fecha_verificacion, status)
+    INSERT INTO mandril_info (mandril_id, mandril_plataforma,  mandril_periodo, mandril_parte, mandril_ubic, fecha_verificacion, status)
     VALUES( '${id}', '${plataforma}','${periodo}','${parte}','${ubicacion}','${fecha}', 'Activo')`, function (err, result, fields) {
         if (err) {
             callback(err, null);
@@ -111,7 +111,7 @@ funcion.controllerInsertEquipoN = (id,  plataforma, periodo,parte, ubicacion, fe
 funcion.controllerInsertStock = (id,  ubicacion, total, callback) => {
 
     db.query(`
-    INSERT INTO equipo_stock (equipo_id, equipo_ubicacion,  equipo_total)
+    INSERT INTO mandril_stock (mandril_id, mandril_ubicacion,  mandril_total)
     VALUES( '${id}', ${ubicacion}, ${total})`, function (err, result, fields) {
         if (err) {
             callback(err, null);
@@ -123,10 +123,10 @@ funcion.controllerInsertStock = (id,  ubicacion, total, callback) => {
 
 }
 
-funcion.controllerInsertMovimiento = (equipo_id, accion, req_empleado, aut_empleado, id_ubicacion,total, comentario, callback) => {
+funcion.controllerInsertMovimiento = (mandril_id, accion, req_empleado, aut_empleado, id_ubicacion,total, comentario, callback) => {
     db.query(`
-    INSERT INTO equipo_req (equipo_id, accion, emp_req, emp_aut, ubicacion,cantidad, comentario, fecha)
-    VALUES( '${equipo_id}', '${accion}','${req_empleado}','${aut_empleado}','${id_ubicacion}',${total},'${comentario}', NOW())`, function (err, result, fields) {
+    INSERT INTO mandril_req (mandril_id, accion, emp_req, emp_aut, ubicacion,cantidad, comentario, fecha)
+    VALUES( '${mandril_id}', '${accion}','${req_empleado}','${aut_empleado}','${id_ubicacion}',${total},'${comentario}', NOW())`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -140,12 +140,12 @@ funcion.controllerInsertMovimiento = (equipo_id, accion, req_empleado, aut_emple
 
 
 funcion.UpdateMandril = (id_mandril, plataforma,parte,ubicacion,periodo, callback) => {
-    db.query(`UPDATE equipo_info SET 
-    equipo_plataforma= "${plataforma}",
-    equipo_parte= "${parte}",
-    equipo_ubic= "${ubicacion}",
-    equipo_periodo= "${periodo}"
-    WHERE equipo_id = "${id_mandril}"`, function (err, result, fields) {
+    db.query(`UPDATE mandril_info SET 
+    mandril_plataforma= "${plataforma}",
+    mandril_parte= "${parte}",
+    mandril_ubic= "${ubicacion}",
+    mandril_periodo= "${periodo}"
+    WHERE mandril_id = "${id_mandril}"`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -158,9 +158,9 @@ funcion.UpdateMandril = (id_mandril, plataforma,parte,ubicacion,periodo, callbac
 
 
 funcion.UpdateEntrada = (id,total,ubicacion, callback) => {
-    db.query(`UPDATE equipo_stock SET 
-    equipo_total= equipo_total + "${total}"
-    WHERE equipo_id = "${id}" AND equipo_ubicacion=${ubicacion}`, function (err, result, fields) {
+    db.query(`UPDATE mandril_stock SET 
+    mandril_total= mandril_total + "${total}"
+    WHERE mandril_id = "${id}" AND mandril_ubicacion=${ubicacion}`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -172,9 +172,9 @@ funcion.UpdateEntrada = (id,total,ubicacion, callback) => {
 }
 
 funcion.UpdateSalida = (id,total,ubicacion, callback) => {
-    db.query(`UPDATE equipo_stock SET 
-    equipo_total= equipo_total - "${total}"
-    WHERE equipo_id = "${id}" AND equipo_ubicacion=${ubicacion}`, function (err, result, fields) {
+    db.query(`UPDATE mandril_stock SET 
+    mandril_total= mandril_total - "${total}"
+    WHERE mandril_id = "${id}" AND mandril_ubicacion=${ubicacion}`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -187,9 +187,9 @@ funcion.UpdateSalida = (id,total,ubicacion, callback) => {
 
 
 funcion.getInfoMandril = (mandril,callback) => {
-    db.query(`SELECT * FROM equipo_info, equipo_stock, equipo_ubicacion
-     WHERE equipo_info.equipo_id='${mandril}' AND equipo_stock.equipo_id='${mandril}'
-     AND equipo_stock.equipo_ubicacion=equipo_ubicacion.ubicacion_id`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info, mandril_stock, mandril_ubicacion
+     WHERE mandril_info.mandril_id='${mandril}' AND mandril_stock.mandril_id='${mandril}'
+     AND mandril_stock.mandril_ubicacion=mandril_ubicacion.ubicacion_id`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -203,8 +203,8 @@ funcion.getInfoMandril = (mandril,callback) => {
 
 
 funcion.getStockMandrilAlmacen = (mandril, ubicacion,callback) => {
-    db.query(`SELECT * FROM equipo_stock
-     WHERE equipo_id='${mandril}' AND equipo_ubicacion=${ubicacion}`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_stock
+     WHERE mandril_id='${mandril}' AND mandril_ubicacion=${ubicacion}`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -217,9 +217,9 @@ funcion.getStockMandrilAlmacen = (mandril, ubicacion,callback) => {
 }
 
 funcion.controllerUpdateFechaVerificacion = (id_equipo, columna, callback) => {
-    db.query(`UPDATE equipo_info SET 
+    db.query(`UPDATE mandril_info SET 
     ${columna} = NOW()
-    WHERE equipo_id = "${id_equipo}"`, function (err, result, fields) {
+    WHERE mandril_id = "${id_equipo}"`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -231,7 +231,7 @@ funcion.controllerUpdateFechaVerificacion = (id_equipo, columna, callback) => {
 }
 
 funcion.controllerAllEquipo = (callback) => {
-    db.query(`SELECT * FROM equipo_info`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -244,7 +244,7 @@ funcion.controllerAllEquipo = (callback) => {
 }
 
 funcion.controllerAllEquipoMov = (callback) => {
-    db.query(`SELECT * FROM equipo_info WHERE status='Activo'`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info WHERE status='Activo'`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -257,10 +257,10 @@ funcion.controllerAllEquipoMov = (callback) => {
 }
 
 funcion.controllerSelectedEquipo = (id_equipo, callback) => {
-    db.query(`SELECT * FROM equipo_info, equipo_tipo
-    WHERE (equipo_info.equipo_tipo = equipo_tipo.id_tipo)
-    AND equipo_id="${id_equipo}"
-    ORDER BY equipo_id DESC`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info, mandril_tipo
+    WHERE (mandril_info.mandril_tipo = mandril_tipo.id_tipo)
+    AND mandril_id="${id_equipo}"
+    ORDER BY mandril_id DESC`, function (err, result, fields) {
 
         if (err) {
             callback(err, null);
@@ -273,9 +273,9 @@ funcion.controllerSelectedEquipo = (id_equipo, callback) => {
 }
 
 funcion.controllerTablaMandriles = (callback) => {
-    db.query(`SELECT * FROM equipo_info
+    db.query(`SELECT * FROM mandril_info
     WHERE status='Activo'
-    ORDER BY equipo_id DESC`, function (err, result, fields) {
+    ORDER BY mandril_id DESC`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -287,10 +287,10 @@ funcion.controllerTablaMandriles = (callback) => {
 
 
 funcion.controllerTablaMandrilesDisponibles = (callback) => {
-    db.query(`SELECT *, SUM (equipo_stock.equipo_total) AS disponibles FROM equipo_stock, equipo_info
-    WHERE (equipo_stock.equipo_ubicacion != 7 AND equipo_stock.equipo_ubicacion != 8) 
-    AND equipo_stock.equipo_id= equipo_info.equipo_id
-    GROUP BY equipo_stock.equipo_id`, function (err, result, fields) {
+    db.query(`SELECT *, SUM (mandril_stock.mandril_total) AS disponibles FROM mandril_stock, mandril_info
+    WHERE (mandril_stock.mandril_ubicacion != 7 AND mandril_stock.mandril_ubicacion != 8) 
+    AND mandril_stock.mandril_id= mandril_info.mandril_id
+    GROUP BY mandril_stock.mandril_id`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -302,9 +302,9 @@ funcion.controllerTablaMandrilesDisponibles = (callback) => {
 
 
 funcion.controllerTablaMandrilesNoDisponibles = (callback) => {
-    db.query(`SELECT * FROM equipo_stock, equipo_info
-    WHERE (equipo_stock.equipo_ubicacion = 7) AND equipo_stock.equipo_id= equipo_info.equipo_id
-    GROUP BY equipo_stock.equipo_id`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_stock, mandril_info
+    WHERE (mandril_stock.mandril_ubicacion = 7) AND mandril_stock.mandril_id= mandril_info.mandril_id
+    GROUP BY mandril_stock.mandril_id`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -316,8 +316,8 @@ funcion.controllerTablaMandrilesNoDisponibles = (callback) => {
 
 
 funcion.InfoMandrilEmail = (id,callback) => {
-    db.query(`SELECT * FROM equipo_info
-    WHERE equipo_id = '${id}' `, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info
+    WHERE mandril_id = '${id}' `, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -329,9 +329,9 @@ funcion.InfoMandrilEmail = (id,callback) => {
 
 
 funcion.controllerTablaInventario = (id,callback) => {
-    db.query(`SELECT * FROM equipo_stock LEFT JOIN equipo_ubicacion
-    ON (equipo_ubicacion.ubicacion_id= equipo_stock.equipo_ubicacion)
-    WHERE equipo_stock.equipo_id=${id}`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_stock LEFT JOIN mandril_ubicacion
+    ON (mandril_ubicacion.ubicacion_id= mandril_stock.mandril_ubicacion)
+    WHERE mandril_stock.mandril_id=${id}`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -343,9 +343,9 @@ funcion.controllerTablaInventario = (id,callback) => {
 
 
 funcion.controllerTablaEquipo = (status, callback) => {
-    db.query(`SELECT * FROM equipo_info
+    db.query(`SELECT * FROM mandril_info
     WHERE status='${status}'
-    ORDER BY equipo_id`, function (err, result, fields) {
+    ORDER BY mandril_id`, function (err, result, fields) {
 
         if (err) {
             callback(err, null);
@@ -357,8 +357,8 @@ funcion.controllerTablaEquipo = (status, callback) => {
 }
 
 funcion.controllerTablaVerificacion = (callback) => {
-    db.query(`SELECT * FROM equipo_info WHERE status='Activo'
-    ORDER BY equipo_id DESC`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_info WHERE status='Activo'
+    ORDER BY mandril_id DESC`, function (err, result, fields) {
 
         if (err) {
             callback(err, null);
@@ -373,8 +373,8 @@ funcion.controllerTablaVerificacion = (callback) => {
 
 funcion.controllerHistorialEquipo = (equipoid, callback) => {
 
-    db.query(`SELECT * FROM equipo_req, equipo_ubicacion WHERE equipo_req.ubicacion= equipo_ubicacion.ubicacion_id
-     AND equipo_id = '${equipoid}' ORDER BY fecha DESC`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_req, mandril_ubicacion WHERE mandril_req.ubicacion= mandril_ubicacion.ubicacion_id
+     AND mandril_id = '${equipoid}' ORDER BY fecha DESC`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -386,7 +386,7 @@ funcion.controllerHistorialEquipo = (equipoid, callback) => {
 
 funcion.controllerHistorialVerificacion = (equipoid, callback) => {
 
-    db.query(`SELECT * FROM equipo_verificacion WHERE equipo_id = '${equipoid}'`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_verificacion WHERE mandril_id = '${equipoid}'`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -398,7 +398,7 @@ funcion.controllerHistorialVerificacion = (equipoid, callback) => {
 
 funcion.controllerEmpleadosHistorial = (equipoid, callback) => {
     let nombres = [];
-    db.query(`SELECT emp_req FROM equipo_req WHERE equipo_id = '${equipoid}'`, function (err, result, fields) {
+    db.query(`SELECT emp_req FROM mandril_req WHERE mandril_id = '${equipoid}'`, function (err, result, fields) {
 
         for (let i = 0; i < result.length; i++) {
 
@@ -421,7 +421,7 @@ funcion.controllerEmpleadosHistorial = (equipoid, callback) => {
 
 funcion.controllerInsertVerificacion = (info, callback) => {
     db.query(`
-    INSERT INTO equipo_verificacion (equipo_id, emp_id,cant,
+    INSERT INTO mandril_verificacion (mandril_id, emp_id,cant,
         filook,
         filonok,
         filoact,
@@ -468,7 +468,7 @@ funcion.controllerInsertVerificacion = (info, callback) => {
 
 funcion.controllerInsertNotificar = (correo, callback) => {
     db.query(`
-    INSERT IGNORE INTO equipo_notificar (correo)
+    INSERT IGNORE INTO mandril_notificar (correo)
     VALUES( '${correo}')`, function (err, result, fields) {
         if (err) {
             callback(err, null);
@@ -482,7 +482,7 @@ funcion.controllerInsertNotificar = (correo, callback) => {
 
 funcion.controllerTablaNotificar = (callback) => {
 
-    db.query(`SELECT * FROM equipo_notificar`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_notificar`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -496,7 +496,7 @@ funcion.controllerTablaNotificar = (callback) => {
 
 funcion.consultaVerificacion = (idverif,callback) => {
 
-    db.query(`SELECT * FROM equipo_verificacion WHERE verif_id='${idverif}'`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_verificacion WHERE verif_id='${idverif}'`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -507,10 +507,10 @@ funcion.consultaVerificacion = (idverif,callback) => {
 
 }
 
-funcion.controllerInsertBaja = (equipo_id, emp_id, motivo, callback) => {
+funcion.controllerInsertBaja = (mandril_id, emp_id, motivo, callback) => {
     db.query(`
-    INSERT INTO equipo_req (equipo_id, accion, emp_req, emp_aut, ubicacion, comentario, fecha)
-    VALUES( '${equipo_id}', 'Baja','','${emp_id}','','${motivo}', NOW())`, function (err, result, fields) {
+    INSERT INTO mandril_req (mandril_id, accion, emp_req, emp_aut, ubicacion, comentario, fecha)
+    VALUES( '${mandril_id}', 'Baja','','${emp_id}','','${motivo}', NOW())`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -524,7 +524,7 @@ funcion.controllerInsertBaja = (equipo_id, emp_id, motivo, callback) => {
 
 funcion.controllerTipoEquipo = (callback) => {
 
-    db.query(`SELECT * FROM equipo_tipo`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_tipo`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -537,7 +537,7 @@ funcion.controllerTipoEquipo = (callback) => {
 
 funcion.controllerIdTipo = (tipo, callback) => {
 
-    db.query(`SELECT id_tipo FROM equipo_tipo WHERE tipo='${tipo}'`, function (err, result, fields) {
+    db.query(`SELECT id_tipo FROM mandril_tipo WHERE tipo='${tipo}'`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -563,7 +563,7 @@ funcion.controllerAreas = (callback) => {
 
 funcion.controllerDeleteNotificar = (correo, callback) => {
 
-    db.query(`DELETE FROM equipo_notificar WHERE correo='${correo}'`, function (err, result, fields) {
+    db.query(`DELETE FROM mandril_notificar WHERE correo='${correo}'`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {

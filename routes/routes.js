@@ -6,14 +6,14 @@ const routesController = require('./routesController')
 
 router.get('/', routesController.index_GET);
 router.get('/login/:id', routesController.login);
-router.get('/crear_equipo/login', routesController.crear_equipo_GET);
-router.post('/crear_equipo', routesController.crear_equipo_POST);
+router.get('/crear_equipo/login', routesController.crear_mandril_GET);
+router.post('/crear_equipo', routesController.crear_mandril_POST);
 router.post('/alta_baja', routesController.alta_baja_POST);
 router.post('/guardar_alta_baja', routesController.guardar_alta_baja_POST);
 router.get('/consulta_mandril/:id', routesController.consulta_mandril_GET);
 router.get('/consulta_mandril_stock_entrada/:id', routesController.consulta_mandril_stock_entrada_GET);
 router.get('/consulta_mandril_stock_salida/:id', routesController.consulta_mandril_stock_salida_GET);
-router.post('/guardar_equipo', routesController.guardar_equipo_POST);
+router.post('/guardar_equipo', routesController.guardar_mandril_POST);
 router.post('/verificacion', routesController.verificacion_POST);
 router.post('/movimiento', routesController.movimiento_POST);
 router.post('/entrada_cedula', routesController.entrada_cedula_POST);
