@@ -31,7 +31,7 @@
                 <div class="row">
 
                     <div class="form-group col-lg-12">
-                        <label for="Titulo">Nombre Empleado: </label> <label id="msg"> </label>
+                        <label for="Titulo">Nombre Empleado: </label> 
                         <input type="text" class="form-control" id="nombreempleado" value="<%=data4%> - <%=data3%>" name="nombreempleado"
                             onkeyup="this.value = this.value.toUpperCase();" readonly>
                     </div>
@@ -50,7 +50,7 @@
                         <select class="form-control" name="plataforma" id="plataforma">
                             <option value="" selected>Seleccionar</option>
                             <% for (var i = 0; i < data.length; i++) { %>
-                            <option><%= data[i].subarea %></option>
+                            <option><%= data[i].plataforma %></option>
                             <% } %>
                         </select>
                     </div>

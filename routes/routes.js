@@ -35,7 +35,9 @@ router.post('/eliminar_notificar', routesController.eliminar_notificar_POST);
 router.post('/alta_acceso', routesController.alta_acceso_POST);
 router.post('/guardar_acceso', routesController.guardar_acceso_POST);
 router.post('/delete_acceso', routesController.delete_acceso_POST);
-
+router.post('/plataforma', routesController.plataforma_POST);
+router.post('/guardar_plataforma', routesController.guardar_plataforma_POST);
+router.post('/delete_plataforma', routesController.delete_plataforma_POST);
 
 router.get('*', (req, res) => {
   res.send('404 Page not found');

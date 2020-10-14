@@ -34,14 +34,8 @@
             <th><span class="icoSidebar fas fa-hashtag"></span> ID Mandril</th>
                    
                     <th><span class="icoSidebar fas fa-car"></span> Plataforma</th>
-
                     <th><span class="icoSidebar fas fa-car"></span> Disponible</th>
-                    <!-- <th><span class="icoSidebar fas fa-car"></span> No Disponible</th>
-                    <th><span class="icoSidebar fas fa-car"></span> Dado de Baja</th> -->
-                    
-                    <!-- <th><span class="icoSidebar fas fa-calendar"></span> Periodo de Verificacion</th> -->
                     <th><span class="icoSidebar fas fa-calendar-minus"></span> Ultimo Mantenimiento</th>
-                    <!-- <th><span class="icoSidebar fas fa-calendar-plus"></span> Proxima Verificacion</th> -->
                     <th><span class="icoSidebar fas fa-stopwatch"></span> Proximo Mantenimiento</th>
                
 
@@ -85,6 +79,8 @@
 			    let days2 = Math.floor(timeLeft2 / 86400); 
                 %>
 
+                <%if(data4[i].disponibles>0) { %>
+
             <tr class="table_roww">
                 <td class="text-center" >
                     <form method="POST">
@@ -105,9 +101,9 @@
                 </td>
 
                 <%
-                            if(days <=1 || days2 <=1){
+                            if(days <=4 || days2 <=4){
                                classBtn = "danger"
-                            }else if((days > 10  && days <= 15) || (days2 > 10  && days2 <= 15)){
+                            }else if((days > 4  && days <= 15) || (days2 > 4  && days2 <= 15)){
                                 classBtn ="warning"
                             }else{
                                 classBtn="success"
@@ -143,7 +139,7 @@
 
 
             </tr>
-          
+            <% } %>
             <% } %>
             <% } %>
         </tbody>

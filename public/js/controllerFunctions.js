@@ -54,7 +54,7 @@ funcion.controllerCorreosAll = ( callback) => {
 }
 
 funcion.controllerPlataforma = (callback) => {
-    dbA.query(`SELECT * FROM areas_subarea WHERE id_subarea>19`, function (err, result, fields) {
+    db.query(`SELECT * FROM mandril_plataforma`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -299,6 +299,39 @@ funcion.controllerTablaMandrilesDisponibles = (callback) => {
         }
     })
 }
+
+
+funcion.controllerTablaMandrilesProduccion = (callback) => {
+    db.query(`SELECT *, SUM (mandril_stock.mandril_total) AS disponibles FROM mandril_stock, mandril_info
+    WHERE (mandril_stock.mandril_ubicacion =2) 
+    AND mandril_stock.mandril_id= mandril_info.mandril_id
+    GROUP BY mandril_stock.mandril_id`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+            callback(null, result);
+        }
+    })
+}
+
+
+funcion.controllerTablaMandrilesAlmacen = (callback) => {
+    db.query(`SELECT *, SUM (mandril_stock.mandril_total) AS disponibles FROM mandril_stock, mandril_info
+    WHERE (mandril_stock.mandril_ubicacion = 1) 
+    AND mandril_stock.mandril_id= mandril_info.mandril_id
+    GROUP BY mandril_stock.mandril_id`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+            callback(null, result);
+        }
+    })
+}
+
+
+
 
 
 funcion.controllerTablaMandrilesNoDisponibles = (callback) => {
@@ -573,6 +606,38 @@ funcion.controllerDeleteNotificar = (correo, callback) => {
     })
 
 }
+
+
+funcion.InsertPlataforma = (plataforma, callback) => {
+    db.query(`
+    INSERT INTO mandril_plataforma (plataforma)
+    VALUES( '${plataforma}')`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+            callback(null, result);
+        }
+    })
+
+}
+
+
+funcion.deleteplataforma = (idplat, callback) => {
+
+    db.query(`DELETE FROM mandril_plataforma WHERE plataforma_id=${idplat}`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+            callback(null, result);
+        }
+    })
+
+}
+
+
+
 
 
 

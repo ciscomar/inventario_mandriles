@@ -7,7 +7,7 @@
     <div class="row">
         <div class="box-header col-lg-6">
                 <br>
-            <h3 class="box-title">Mandriles Disponibles</h3>
+            <h3 class="box-title">Inventario de Mandriles</h3>
         </div>
     </div>
 
@@ -32,7 +32,8 @@
             <th><span class="icoSidebar fas fa-hashtag"></span> ID Mandril</th>
             <th><span class="icoSidebar fas fa-car"></span> Plataforma</th>
             <th><span class="icoSidebar fas fa-car"></span> Numero Parte</th>
-            <th><span class="icoSidebar fas fa-car"></span> Disponible</th>
+            <th><span class="icoSidebar fas fa-car"></span> Almacen</th>
+            <th><span class="icoSidebar fas fa-car"></span> Produccion</th>
             <!-- <th><span class="icoSidebar fas fa-car"></span> Dado de Baja</th> -->
 
 
@@ -66,8 +67,11 @@
                 <td><%= data2[i].disponibles%></td>
 
 
-
-
+                <% for (var y = 0; y < data3.length; y++) { %>
+                    <%if(data3[y].mandril_id==data2[i].mandril_id) { %>
+                    <td><%= data3[i].disponibles%></td>
+                    <% } %>
+                    <% } %>
 
             </tr>
             <% } %>

@@ -1,0 +1,135 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+<div class="col-md-6 col-lg-10-2">
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <br>
+            <h3 class="box-title">Plataformas</h3>
+        </div>
+
+        <br>
+        <div class="alert alert-success text-center mt-1" id='success-alert' role="alert" hidden>
+            <span>Movimiento Guardado</span>
+        </div>
+
+        <form action="/guardar_equipo" method="POST">
+            <div class="box-body">
+                <!------->
+
+                <div class="row">
+
+
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Plataforma </label> <label id="msg"> </label>
+                        <input type="text" class="form-control" id="plataforma" value="" name="plataforma"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+
+                </div>
+               
+
+                <div class="box-footer">
+                    <button id="btnguardar" type="submit" class="btn btn-primary"
+                        onclick="$('form').attr('action', '/guardar_plataforma');">Guardar</button>
+                </div>
+        </form>
+
+
+<div class="row">
+    
+
+        <div class="table-responsive">
+            <div class="containerTable">
+      
+            <div class="table table-responsive" id="table">
+                <table id="myTable" class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+            
+                        <th><span class="icoSidebar fas fa-history"></span> Eliminar</th>
+                        <th><span class="icoSidebar fas fa-history"></span> Plataforma</th>
+                      
+            
+                    </thead>
+            
+                    <tbody>
+                        <%if(data) { %>
+                        <% for (var i = 0; i < data.length; i++) { %>
+                       
+                        <tr class="table_roww">
+
+                            <td class="text-center " width='10%'>
+                                <form method="POST">
+                                    <button name="equipoid" type="submit" formaction="/delete_plataforma"
+                                        class="btn btn-danger text-center"><span class="icoWhite fas fa-trash-alt"></button>
+                                    <input type="text" name="idplataforma" value="<%=data[i].plataforma_id%>" hidden>
+                                </form>
+                            </td>
+
+                            <td><%= data[i].plataforma%></td>       
+            
+                        </tr>
+                        <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+
+    </div>
+    </div>
+
+
+    <% include ./static/footer %>
+</div>
+</body>
+
+</html>
+
+<script>
+
+
+
+plataforma.addEventListener("keyup", function (e) {
+
+    
+
+plataformas = <%- JSON.stringify(data) %>;
+var msg = document.getElementById("msg");
+var idin = document.getElementById("plataforma");
+
+var plataform = $('#plataforma').val();
+console.log();
+
+for (var i = 0; i < plataformas.length; i++) {
+    if (plataform == plataformas[i].plataforma) {
+
+        $('#btnguardar').prop("disabled", true);
+        msg.innerHTML = ' Ya registrado';
+        idin.classList.remove('border-success');
+        msg.classList.remove('text-success');
+        msg.classList.add('text-danger');
+        idin.classList.add('border-danger');
+        break;
+
+    } else {
+
+        $('#btnguardar').prop("disabled", false);
+        msg.innerHTML = ' ';
+        idin.classList.remove('border-danger');
+        msg.classList.add('text-success');
+        idin.classList.add('border-success');
+    }
+}
+
+});
+
+
+
+
+
+</script>
