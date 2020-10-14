@@ -914,7 +914,7 @@ controller.guardar_plataforma_POST = (req, res) => {
 
     funcion.InsertPlataforma(plataforma, (err, result) => {
         if (err) throw err;
-    });
+   
 
     funcion.controllerPlataforma((err, result1) => {
         if (err) throw err;
@@ -924,6 +924,7 @@ controller.guardar_plataforma_POST = (req, res) => {
                 data: result1
             });
         });
+    });
 };
 
 
@@ -933,7 +934,7 @@ controller.delete_plataforma_POST = (req, res) => {
 
     funcion.deleteplataforma(idplat, (err, result) => {
         if (err) throw err;
-    });
+   
 
     funcion.controllerPlataforma((err, result1) => {
         if (err) throw err;
@@ -943,6 +944,7 @@ controller.delete_plataforma_POST = (req, res) => {
                 data: result1
             });
         });
+    });
 };
 
 
