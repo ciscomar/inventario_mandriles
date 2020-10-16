@@ -410,15 +410,22 @@ controller.guardar_movimiento_cedula_POST = (req, res) => {
 
 
 
-    funcion.controllerTablaMandrilesDisponibles((err, result2) => {
+    funcion.controllerTablaMandrilesAlmacen((err, result2) => {
         if (err) throw err;
 
+        funcion.controllerTablaMandrilesProduccion((err, result3) => {
+            if (err) throw err;
+
+      
+
         res.render('mandriles.ejs', {
-            data2: result2
+
+            data2: result2, data3:result3
         });
 
 
     });
+});
 
 
 
