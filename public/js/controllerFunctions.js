@@ -330,6 +330,21 @@ funcion.controllerTablaMandrilesAlmacen = (callback) => {
     })
 }
 
+funcion.controllerTablaMandrilesAll = (callback) => {
+    db.query(`SELECT *, SUM (mandril_stock.mandril_total) AS disponibles FROM mandril_stock, mandril_info
+    WHERE mandril_stock.mandril_id= mandril_info.mandril_id
+    GROUP BY mandril_stock.mandril_id`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+            callback(null, result);
+        }
+    })
+}
+
+
+
 
 
 

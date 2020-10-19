@@ -84,15 +84,15 @@ controller.login = (req, res) => {
                                             data: loginId, data2: result
                                         });
                                     });
-                                }else
-                                if (loginId == 'plataforma') {
-                                    funcionE.empleadosAccessAll(2, '>=', (err, result) => {
+                                } else
+                                    if (loginId == 'plataforma') {
+                                        funcionE.empleadosAccessAll(2, '>=', (err, result) => {
 
-                                        res.render('login.ejs', {
-                                            data: loginId, data2: result
+                                            res.render('login.ejs', {
+                                                data: loginId, data2: result
+                                            });
                                         });
-                                    });
-                                }
+                                    }
 }
 
 
@@ -416,16 +416,19 @@ controller.guardar_movimiento_cedula_POST = (req, res) => {
         funcion.controllerTablaMandrilesProduccion((err, result3) => {
             if (err) throw err;
 
-      
+            funcion.controllerTablaMandrilesAll((err, result4) => {
+                if (err) throw err;
 
-        res.render('mandriles.ejs', {
 
-            data2: result2, data3:result3
+                res.render('mandriles.ejs', {
+
+                    data2: result2, data3: result3, data4: result4
+                });
+
+
+            });
         });
-
-
     });
-});
 
 
 
@@ -440,20 +443,23 @@ controller.mandriles_GET = (req, res) => {
 
 
 
-        funcion.controllerTablaMandrilesAlmacen((err, result2) => {
+    funcion.controllerTablaMandrilesAlmacen((err, result2) => {
+        if (err) throw err;
+
+        funcion.controllerTablaMandrilesProduccion((err, result3) => {
             if (err) throw err;
 
-            funcion.controllerTablaMandrilesProduccion((err, result3) => {
+            funcion.controllerTablaMandrilesAll((err, result4) => {
                 if (err) throw err;
 
-          
 
-            res.render('mandriles.ejs', {
+                res.render('mandriles.ejs', {
 
-                data2: result2, data3:result3
+                    data2: result2, data3: result3, data4: result4
+                });
+
+
             });
-
-
         });
     });
 
@@ -906,26 +912,26 @@ controller.plataforma_POST = (req, res) => {
         if (err) throw err;
 
 
-            res.render('plataformas.ejs', {
-                data: result1
-            });
+        res.render('plataformas.ejs', {
+            data: result1
         });
+    });
 
 };
 
 
 
 controller.guardar_plataforma_POST = (req, res) => {
-    
-    plataforma= req.body.plataforma
+
+    plataforma = req.body.plataforma
 
     funcion.InsertPlataforma(plataforma, (err, result) => {
         if (err) throw err;
-   
 
-    funcion.controllerPlataforma((err, result1) => {
-        if (err) throw err;
-        
+
+        funcion.controllerPlataforma((err, result1) => {
+            if (err) throw err;
+
 
             res.render('plataformas.ejs', {
                 data: result1
@@ -936,15 +942,15 @@ controller.guardar_plataforma_POST = (req, res) => {
 
 
 controller.delete_plataforma_POST = (req, res) => {
-    
-    idplat= req.body.idplataforma
+
+    idplat = req.body.idplataforma
 
     funcion.deleteplataforma(idplat, (err, result) => {
         if (err) throw err;
-   
 
-    funcion.controllerPlataforma((err, result1) => {
-        if (err) throw err;
+
+        funcion.controllerPlataforma((err, result1) => {
+            if (err) throw err;
 
 
             res.render('plataformas.ejs', {

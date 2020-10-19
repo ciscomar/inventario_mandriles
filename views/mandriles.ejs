@@ -32,6 +32,7 @@
             <th><span class="icoSidebar fas fa-hashtag"></span> ID Mandril</th>
             <th><span class="icoSidebar fas fa-car"></span> Plataforma</th>
             <th><span class="icoSidebar fas fa-car"></span> Numero Parte</th>
+            <th><span class="icoSidebar fas fa-car"></span> Total</th>
             <th><span class="icoSidebar fas fa-car"></span> Almacen</th>
             <th><span class="icoSidebar fas fa-car"></span> Produccion</th>
             <!-- <th><span class="icoSidebar fas fa-car"></span> Dado de Baja</th> -->
@@ -64,6 +65,13 @@
                 <td class="table_id"><%= data2[i].mandril_id %></td>
                 <td><%= data2[i].mandril_plataforma%></td>
                 <td><%= data2[i].mandril_parte%></td>
+
+                <% for (var z = 0; z < data4.length; z++) { %>
+                    <%if(data4[z].mandril_id==data2[i].mandril_id) { %>
+                    <td><%= data4[z].disponibles%></td>
+                    <% } %>
+                    <% } %>
+
                 <td><%= data2[i].disponibles%></td>
 
 
