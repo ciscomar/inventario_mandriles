@@ -56,10 +56,10 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">A tiempo: <%=tiempo%>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">A tiempo: <%=tiempo%>
                             </div>
                             <div class="progress">
-                                    <div class="animated fadeInLeft fast cdelay-1 progress-bar progress-bar-striped bg-info"
+                                    <div class="animated fadeInLeft fast cdelay-1 progress-bar progress-bar-striped bg-primary"
                                         role="progressbar" style="width: <%=tiempo%>%"
                                         aria-valuenow="<%=tiempo%>" aria-valuemin="0" aria-valuemax="<%=total%>">
                                         <%=tiempo%>%</div>
@@ -79,10 +79,10 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Adelantado: <%=antes%>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Adelantado: <%=antes%>
                             </div>
                             <div class="progress">
-                                    <div class="animated fadeInLeft fast cdelay-2 progress-bar progress-bar-striped bg-success"
+                                    <div class="animated fadeInLeft fast cdelay-2 progress-bar progress-bar-striped bg-info"
                                         role="progressbar" style="width: <%=antes%>%"
                                         aria-valuenow="<%=antes%>" aria-valuemin="0" aria-valuemax="<%=total%>">
                                         <%=antes%>%</div>
@@ -136,7 +136,7 @@ let  mantenimientos =["<%=atrasado%>","<%=tiempo%>","<%=antes%>"]
                                 datasets: [{
                                       
                                         data: mantenimientos,
-                                        backgroundColor: ["#d9534f", "#5bc0de", "#5cb85c"]
+                                        backgroundColor: ["#d9534f", "#5cb85c", "#5bc0de"]
                                     }],
                             labels: ['Atrasado','A tiempo','Adelantado']},
                             
