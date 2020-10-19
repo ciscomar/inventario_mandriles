@@ -287,6 +287,15 @@ let date = data.fecha
         let day = date.getDate().toString().padStart(2, '0');
 
         fechaAltaFormatted=day + '/' + month + '/' + year
+
+
+        let date2 = data.fecha_programada
+
+        let year2 = date2.getFullYear();
+        let month2 = (1 + date2.getMonth()).toString().padStart(2, '0');
+        let day2 = date2.getDate().toString().padStart(2, '0');
+
+        fechaProgramada=day2 + '/' + month2 + '/' + year2
 %>
 
 
@@ -338,7 +347,7 @@ function printJSPDF() {
         doc.setFontSize(8)
         doc.setFontType('normal')
         doc.text(180, 45, 'FECHA PROGRAMADA:_____________________')
-        doc.text(220, 45, '<%=fechaAltaFormatted%>')
+        doc.text(220, 45, '<%=fechaProgramada%>')
 
 
 

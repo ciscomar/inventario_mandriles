@@ -562,9 +562,11 @@ controller.verificar_POST = (req, res) => {
     equipo = req.body.mandril_id2;
     user = req.body.user;
     fecharyr = req.body.fecharyr
+    fechaprogramada= req.body.fecha_programada
+
 
     res.render('verificar.ejs', {
-        data: equipo, data2: user, fecha: fecharyr
+        data: equipo, data2: user, fecha: fecharyr, fecha_programada: fechaprogramada
     });
 
 
