@@ -653,6 +653,52 @@ funcion.deleteplataforma = (idplat, callback) => {
 }
 
 
+funcion.reporteAntes = (fechaInicial,FechaFinal, callback) => {
+
+    db.query(`SELECT COUNT (*) AS antes FROM mandril_verificacion WHERE (DATE(fecha) BETWEEN '${fechaInicial}' AND '${FechaFinal}')
+    AND DATE(fecha) < DATE(fecha_programada)`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+         
+            callback(null, result);
+        }
+    })
+
+}
+
+funcion.reporteTiempo = (fechaInicial,FechaFinal, callback) => {
+
+    db.query(`SELECT COUNT (*) AS tiempo FROM mandril_verificacion WHERE (DATE(fecha) BETWEEN '${fechaInicial}' AND '${FechaFinal}')
+    AND DATE(fecha) = DATE(fecha_programada)`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+           
+            callback(null, result);
+        }
+    })
+
+}
+
+funcion.reporteAtrasado = (fechaInicial,FechaFinal, callback) => {
+
+    db.query(`SELECT COUNT (*) AS atrasado FROM mandril_verificacion WHERE (DATE(fecha) BETWEEN '${fechaInicial}' AND '${FechaFinal}')
+    AND DATE(fecha) > DATE(fecha_programada)`, function (err, result, fields) {
+        if (err) {
+            callback(err, null);
+        } else {
+
+       
+            callback(null, result);
+        }
+    })
+
+}
+
+
 
 
 

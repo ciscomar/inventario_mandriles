@@ -92,7 +92,15 @@ controller.login = (req, res) => {
                                                 data: loginId, data2: result
                                             });
                                         });
-                                    }
+                                    } else
+                                        if (loginId == 'reporte') {
+                                            funcionE.empleadosAccessAll(2, '>=', (err, result) => {
+
+                                                res.render('login.ejs', {
+                                                    data: loginId, data2: result
+                                                });
+                                            });
+                                        }
 }
 
 
@@ -562,7 +570,7 @@ controller.verificar_POST = (req, res) => {
     equipo = req.body.mandril_id2;
     user = req.body.user;
     fecharyr = req.body.fecharyr
-    fechaprogramada= req.body.fecha_programada
+    fechaprogramada = req.body.fecha_programada
 
 
     res.render('verificar.ejs', {
@@ -961,6 +969,47 @@ controller.delete_plataforma_POST = (req, res) => {
         });
     });
 };
+
+
+
+controller.reporte_POST = (req, res) => {
+
+
+    res.render('reporte_fecha.ejs', {
+
+    });
+}
+
+
+controller.reporte_grafica_POST = (req, res) => {
+    fechaInicial = req.body.fecha_inicial
+    fechaFinal = req.body.fecha_final
+
+    console.log(fechaInicial);
+    console.log(fechaFinal);
+
+    funcion.reporteAntes(fechaInicial, fechaFinal, (err, result1) => {
+        if (err) throw err;
+
+        funcion.reporteTiempo(fechaInicial, fechaFinal, (err, result2) => {
+            if (err) throw err;
+
+            funcion.reporteAtrasado(fechaInicial, fechaFinal, (err, result3) => {
+                if (err) throw err;
+
+                console.log(result1);
+                console.log(result2);
+                console.log(result3);
+                res.render('reporte_grafica.ejs', {
+
+                    rantes: result1[0].antes, rtiempo:result2[0].tiempo, ratrasado:result3[0].atrasado, inicial:fechaInicial, final:fechaFinal
+
+
+                });
+            });
+        });
+    });
+}
 
 
 module.exports = controller;

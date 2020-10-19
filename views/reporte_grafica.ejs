@@ -1,0 +1,154 @@
+<% include ./static/header %>
+<% include ./static/sidebar %>
+<% include ./static/navbar %>
+
+
+<!-- Contenedor Principal -->
+
+<div class="col-md-10 col-lg-10-2 col-xl-11">
+    <div class="row">
+        <div class="box-header col-lg-6">
+            <br>
+            <h3 class="box-title">Mantenimientos Realizados</h3>
+            <br>
+        </div>
+    </div>
+
+
+    <!-- Tarjetas -->
+    <div class="row">
+
+            <%
+            let total = rantes + rtiempo + ratrasado
+            let antes =    Math.round(rantes  * 100 / total) *100/100
+            let tiempo =   Math.round( rtiempo * 100 / total) *100/100
+            let atrasado =    Math.round( ratrasado  * 100 / total) *100/100
+            %>
+        <!-- andon Atendidas -->
+        <div class="animated fadeInLeft fast col-xl-3 col-md-6 mb-4">
+            <div class="Card border-left-atendidas shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Atrasado: <%=atrasado%></div>
+
+                            <div class="progress">
+                                    <div class="animated fadeInLeft fast progress-bar progress-bar-striped bg-danger"
+                                        role="progressbar" style="width: <%=atrasado%>%"
+                                        aria-valuenow="<%=atrasado%>" aria-valuemin="0" aria-valuemax="<%=total%>">
+                                        <%=atrasado%>%</div>
+                                </div>
+                            <div class="row no-gutters align-items-center">
+
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-minus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- andon Abiertas -->
+        <div class="animated fadeInLeft fast cdelay-1 col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-abiertas shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">A tiempo: <%=tiempo%>
+                            </div>
+                            <div class="progress">
+                                    <div class="animated fadeInLeft fast cdelay-1 progress-bar progress-bar-striped bg-info"
+                                        role="progressbar" style="width: <%=tiempo%>%"
+                                        aria-valuenow="<%=tiempo%>" aria-valuemin="0" aria-valuemax="<%=total%>">
+                                        <%=tiempo%>%</div>
+                                </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- andon Cerradas -->
+        <div class="animated fadeInLeft fast cdelay-2 col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-cerradas shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Adelantado: <%=antes%>
+                            </div>
+                            <div class="progress">
+                                    <div class="animated fadeInLeft fast cdelay-2 progress-bar progress-bar-striped bg-success"
+                                        role="progressbar" style="width: <%=antes%>%"
+                                        aria-valuenow="<%=antes%>" aria-valuemin="0" aria-valuemax="<%=total%>">
+                                        <%=antes%>%</div>
+                                </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- /Tarjetas -->
+
+    <!-- Graficas -->
+    <h2 class="text-center text-secondary"><%=inicial%> al <%=final%></h2>
+    <div class="horizontalBar ">
+
+        <h4 class="text-center text-info"></h4>
+        <div class="horizontalBar ">
+            <div class="col-lg-12 ">
+
+                <div class="card " style="width: 100%; height: 500px;">
+                    <div class="card-header text-center text-white bg-secondary"></div>
+                    <div class="card-body">
+                        <canvas class="" id="chartMant2" width="250" height="75"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /Graficas -->
+
+
+        </div>
+        <!--/ Contenedor Principal  -->
+    </div>
+    <% include ./static/footer %>
+
+    <script>
+
+
+let  mantenimientos =["<%=atrasado%>","<%=tiempo%>","<%=antes%>"]
+            new Chart(document.getElementById("chartMant2"), {
+                            type: 'pie',
+                            data: {
+                                
+                                datasets: [{
+                                      
+                                        data: mantenimientos,
+                                        backgroundColor: ["#d9534f", "#5bc0de", "#5cb85c"]
+                                    }],
+                            labels: ['Atrasado','A tiempo','Adelantado']},
+                            
+                        });
+
+
+        
+    </script>
+
+
+
+</div>
+</body>
+
+</html>
