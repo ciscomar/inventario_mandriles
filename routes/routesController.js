@@ -985,9 +985,7 @@ controller.reporte_grafica_POST = (req, res) => {
     fechaInicial = req.body.fecha_inicial
     fechaFinal = req.body.fecha_final
 
-    console.log(fechaInicial);
-    console.log(fechaFinal);
-
+   
     funcion.reporteAntes(fechaInicial, fechaFinal, (err, result1) => {
         if (err) throw err;
 
@@ -997,9 +995,7 @@ controller.reporte_grafica_POST = (req, res) => {
             funcion.reporteAtrasado(fechaInicial, fechaFinal, (err, result3) => {
                 if (err) throw err;
 
-                console.log(result1);
-                console.log(result2);
-                console.log(result3);
+              
                 res.render('reporte_grafica.ejs', {
 
                     rantes: result1[0].antes, rtiempo:result2[0].tiempo, ratrasado:result3[0].atrasado, inicial:fechaInicial, final:fechaFinal
