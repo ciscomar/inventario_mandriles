@@ -995,6 +995,9 @@ controller.reporte_grafica_POST = (req, res) => {
             funcion.reporteAtrasado(fechaInicial, fechaFinal, (err, result3) => {
                 if (err) throw err;
 
+   
+
+
               
                 res.render('reporte_grafica.ejs', {
 
