@@ -99,6 +99,11 @@
 </html>
 
 <script>
+
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, '/');
+
+  }
     //////////////////////////////////////////////////////////////////////////////
 
     document.getElementById("req_empleado").focus();
