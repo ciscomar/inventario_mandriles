@@ -333,7 +333,8 @@ controller.guardar_movimiento_POST = (req, res) => {
 
                         funcion.InfoMandrilEmail(mandril_id, (err, mandrilInfo) => {
 
-                            funcion.controllerCorreosAll((err, correo) => {
+                            funcion.controllerCorreosAll("no_disponibles",(err, correo) => {
+                                console.log(correo)
                                 for (var i = 0; i < correo.length; i++) {
 
 
@@ -711,8 +712,19 @@ controller.alta_notificar_POST = (req, res) => {
 controller.guardar_notificar_POST = (req, res) => {
 
     correo = req.body.correo;
-
-    funcion.controllerInsertNotificar(correo, (err, result2) => {
+    not1= req.body.not1;
+    not2= req.body.not2;
+    if (not1!= undefined){
+        not1=1
+    }else{
+        not1=0
+    }
+    if (not2 != undefined){
+        not2=1
+    }else{
+        not2=0
+    }
+    funcion.controllerInsertNotificar(correo,not1, not2, (err, result2) => {
         if (err) throw err;
         funcion.controllerTablaNotificar((err, result3) => {
             if (err) throw err;
@@ -867,6 +879,52 @@ controller.guardar_alta_baja_POST = (req, res) => {
         res.render('alta_baja.ejs', {
             data8: result8, empleado, data9: nuevo, numeroEmpleado, result3,
         });
+
+
+
+        funcion.InfoMandrilEmail(mandril, (err, mandrilInfo) => {
+
+            funcion.controllerCorreosAll("alta_mandriles",(err, correo) => {
+              
+                for (var i = 0; i < correo.length; i++) {
+
+
+                    to = correo[i].correo;
+                    cc = '';
+                    subject = 'Almacen de Mandriles: #' + mandril + ' Parte: ' + mandrilInfo.mandril_parte + ' Plataforma: ' + mandrilInfo.mandril_plataforma
+                    status = movimiento+' de Mandriles';
+                    id = mandril
+                    parte = mandrilInfo.mandril_parte
+                    plataforma = mandrilInfo.mandril_plataforma
+                    user = empleado
+                    comentario = comentario
+                    if (movimiento == "Alta") {
+                    
+                        color = '#099F42'
+                        colorA = '#099F42'
+                        
+                    }else{
+                        color = '#ff0000'
+                        colorA = '#ff0000'
+                    }
+
+                    estado = movimiento
+                    totalm=total
+                    dataEmail = {
+                        to, cc, subject, status, id, parte, plataforma, user, comentario, color, colorA, estado, totalm
+                    }
+
+                    funcion.sendEmail(dataEmail);
+                }
+            });
+        })
+
+
+
+
+
+
+
 
     });
 

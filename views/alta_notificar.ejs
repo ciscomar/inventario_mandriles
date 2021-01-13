@@ -27,6 +27,25 @@
                 </div>
 
 
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Enviar notificacion de:</h5>
+
+                <div class="custom-control custom-switch mb-3">
+                    <input type="checkbox" class="custom-control-input" name="not1" id="not1" value="1" > 
+                    <label class="custom-control-label" for="not1">Mandriles No Disponibles</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3">
+                    <input type="checkbox" class="custom-control-input" name="not2" id="not2" value="1" > 
+                    <label class="custom-control-label" for="not2">Alta / Baja de Mandriles</label>
+                </div>
+
+                    </div>
+                </div>
+                <br>
+
 
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -52,7 +71,8 @@
 
                 <th>Eliminar</th>
                 <th>Correo</th>
-     
+                <th>No Disponibles</th>
+                <th>Alta / Baja</th>
 
 
 
@@ -74,6 +94,21 @@
                     </td>
 
                         <td><%= data2[i].correo%></td>
+                        <td>
+                            <div class="custom-control custom-switch mb-3 text-center">
+                                <input type="checkbox" class="custom-control-input" name="es1" id="es1" value="1"
+                                    <% if(data2[i].no_disponibles=='1') {%> checked <% } %> disabled>
+                                <label class="custom-control-label" for="es1"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="custom-control custom-switch mb-3 text-center">
+                                <input type="checkbox" class="custom-control-input" name="es1" id="es1" value="1"
+                                    <% if(data2[i].alta_mandriles=='1') {%> checked <% } %> disabled>
+                                <label class="custom-control-label" for="es1"></label>
+                            </div>
+                        </td>
+                        
                     
                 </tr>
                 <% } %>

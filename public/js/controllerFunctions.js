@@ -40,9 +40,9 @@ funcion.sendEmail = (dataEmail) => {
 
 };
 
-funcion.controllerCorreosAll = ( callback) => {
+funcion.controllerCorreosAll = (columna, callback) => {
 
-    db.query(`SELECT correo FROM mandril_notificar`, function (err, result, fields) {
+    db.query(`SELECT correo FROM mandril_notificar WHERE ${columna}=1 `, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
@@ -515,10 +515,10 @@ funcion.controllerInsertVerificacion = (info, callback) => {
 
 }
 
-funcion.controllerInsertNotificar = (correo, callback) => {
+funcion.controllerInsertNotificar = (correo,not1, not2, callback) => {
     db.query(`
-    INSERT IGNORE INTO mandril_notificar (correo)
-    VALUES( '${correo}')`, function (err, result, fields) {
+    INSERT IGNORE INTO mandril_notificar (correo, no_disponibles, alta_mandriles)
+    VALUES( '${correo}', ${not1}, ${not2})`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {

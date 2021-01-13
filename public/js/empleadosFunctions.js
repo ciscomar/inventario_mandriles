@@ -42,7 +42,7 @@ funcionE.empleadosNombre = (gafete, callback) => {
 
 funcionE.empleadosTodos = (callback) => {
 
-    dbE.query(`SELECT emp_correo FROM del_empleados ORDER BY emp_correo ASC`, function (err, result, fields) {
+    dbE.query(`SELECT emp_correo FROM del_empleados WHERE emp_correo IS NOT NULL ORDER BY emp_correo ASC`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {
