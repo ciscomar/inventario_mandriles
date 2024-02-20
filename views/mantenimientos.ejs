@@ -49,7 +49,8 @@
                 let date = data4[i].fecha_verificacion
                 let formatted_date =  date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
 
-                let proxima_verificacion= new Date(date.setMonth(date.getMonth()+ data4[i].mandril_periodo));
+                <!-- let proxima_verificacion= new Date(date.setMonth(date.getMonth()+ data4[i].mandril_periodo)); -->
+                let proxima_verificacion= new Date(date.setDate(date.getDate() + (data4[i].mandril_periodo * 7)));
                 let formatted_date2 = proxima_verificacion.getFullYear()+ "-" + (proxima_verificacion.getMonth() + 1) + "-" + proxima_verificacion.getDate() 
 
                 let formatted_date3
@@ -139,7 +140,7 @@
 
                 </td>
 
-                <td><%= data4[i].mandril_periodo%> Mes(es)</td>
+                <td><%= data4[i].mandril_periodo%> Semana(s)</td>
 
 
 
