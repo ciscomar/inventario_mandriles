@@ -27,6 +27,39 @@
                         <label for="Titulo">ID Mandril:</label>
                         <input type="text" class="form-control" id="equipo" value="<%= data%>" name="equipo" readonly>
                     </div>
+
+                    <div class="col-lg-6">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th>Documento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>QD-C4-P00-ME01-AV01 <a data-target="#modal1" data-toggle="modal"  href="#modal1"><i class="fas fa-file-pdf"></a></td>
+                                    <td>Estandar de mandriles con daño en el cuerpo</td>
+                                </tr>
+                                <tr>
+                                    <td>QD-C4-P02-ME01-AV08  <a data-target="#modal2" data-toggle="modal"  href="#modal2"><i class="fas fa-file-pdf"></a></td>
+                                    <td>Ayuda visual de Mandriles con Suciedad</td>
+                                </tr>
+                                <tr>
+                                    <td>QD-C4-P00-ME01  <a data-target="#modal3" data-toggle="modal"  href="#modal3"><i class="fas fa-file-pdf"></a></td>
+                                    <td>Lavado de Mandriles</td>
+                                </tr>
+                                <tr>
+                                    <td>QD-C4-P00-ME02  <a data-target="#modal4" data-toggle="modal"  href="#modal4"><i class="fas fa-file-pdf"></a></td>
+                                    <td>Limpieza de Mandriles con Sandblaster</td>
+                                </tr>
+                                <tr>
+                                    <td>QD-C4-P00-ME03  <a data-target="#modal5" data-toggle="modal"  href="#modal5"><i class="fas fa-file-pdf"></a></td>
+                                    <td>Reparacion de Tapas y Mandriles</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -270,6 +303,7 @@
     </div>
     <!-- /.box -->
 
+    <% include ./static/pdf %>
     <% include ./static/footer %>
 </div>
 </body>
