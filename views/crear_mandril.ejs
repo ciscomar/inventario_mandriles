@@ -45,15 +45,23 @@
                     </div>
 
                     
-                    <div class="form-group col-lg-6"  id='divplat'>
-                        <label for="Titulo">Plataforma</label>
-                        <select class="form-control" name="plataforma" id="plataforma">
-                            <option value="" selected>Seleccionar</option>
+                    <div class="form-group col-lg-6" id="divplat">
+                        <label for="plataforma">Plataforma</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="plataforma" 
+                            id="plataforma" 
+                            list="plataforma-options" 
+                            placeholder="Seleccionar o escribir" 
+                        />
+                        <datalist id="plataforma-options">
                             <% for (var i = 0; i < data.length; i++) { %>
-                            <option><%= data[i].plataforma %></option>
+                            <option value="<%= data[i].plataforma %>"></option>
                             <% } %>
-                        </select>
+                        </datalist>
                     </div>
+                    
 
 
 
