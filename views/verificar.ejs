@@ -285,6 +285,26 @@
 
                 </div>
 
+                <label for="Titulo">Tapa con Identificacion Visible:</label>
+                <div class="row">
+
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label> <label id="bmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="tapaok" value="" name="tapaok" required>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label> <label id="bnmsg" name="message"> </label>
+                        <input type="number" class="form-control" id="tapanok" value="" name="tapanok" required>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="tapaact" value="" name="tapaact"
+                            onkeyup="this.value = this.value.toUpperCase();" required>
+                    </div>
+
+                </div>
+
 
 
 
@@ -955,5 +975,70 @@
         }
 
     })
+
+
+
+
+     ///////////////////////////////////////////////////////////////////////////////////
+
+
+     tapaok.addEventListener("keyup", function (e) {
+
+cantidad = parseInt($('#cant').val())
+b = parseInt($('#tapaok').val())
+bn = parseInt($('#tapanok').val())
+
+var msg = document.getElementById("bmsg");
+
+if (b > cantidad || ((b + bn) > cantidad)) {
+
+    msg.innerHTML = " Cantidad Incorrecta"
+    msg.classList.add('text-danger');
+
+
+} else {
+    msg.innerHTML = ""
+    msg.classList.remove('text-danger');
+}
+
+if (!isNaN(bn)) {
+
+    if (b + bn != cantidad) {
+        msg.innerHTML = " Cantidad Incorrecta"
+        msg.classList.add('text-danger');
+    }
+}
+
+})
+
+
+tapanok.addEventListener("keyup", function (e) {
+
+cantidad = parseInt($('#cant').val())
+b = parseInt($('#tapaok').val())
+bn = parseInt($('#tapanok').val())
+
+var msg = document.getElementById("bnmsg");
+
+if (bn > cantidad || ((b + bn) > cantidad)) {
+
+    msg.innerHTML = " Cantidad Incorrecta"
+    msg.classList.add('text-danger');
+
+
+} else {
+    msg.innerHTML = ""
+    msg.classList.remove('text-danger');
+}
+
+if (!isNaN(b)) {
+
+    if (b + bn != cantidad) {
+        msg.innerHTML = " Cantidad Incorrecta"
+        msg.classList.add('text-danger');
+    }
+}
+
+})
 
 </script>

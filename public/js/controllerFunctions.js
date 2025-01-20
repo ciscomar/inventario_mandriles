@@ -501,10 +501,13 @@ funcion.controllerInsertVerificacion = (info, callback) => {
         bossnok,
         bossact,
          fecha,
-         fecha_programada)
+         fecha_programada,
+         tapaiok,
+         tapainok,
+         tapaiact)
     VALUES( '${info.equipo}', '${info.user}',${info.cant},'${info.filook}','${info.filonok}','${info.filoact}','${info.golpok}','${info.golpnok}','${info.golpact}','${info.hok}','${info.hnok}','${info.hact}'
     ,'${info.soldok}','${info.soldnok}','${info.soldact}','${info.tapaok}','${info.tapanok}','${info.tapaact}','${info.mecanisok}','${info.mecanisnok}','${info.mecanisact}','${info.orientok}' ,'${info.orientnok}','${info.orientact}'
-    ,'${info.muescok}','${info.muescnok}','${info.muescact}','${info.sucok}','${info.sucnok}','${info.sucact}','${info.bossok}','${info.bossnok}','${info.bossact}', NOW(),'${info.fecha_programada}' )`, function (err, result, fields) {
+    ,'${info.muescok}','${info.muescnok}','${info.muescact}','${info.sucok}','${info.sucnok}','${info.sucact}','${info.bossok}','${info.bossnok}','${info.bossact}', NOW(),'${info.fecha_programada}','${info.tapaiok}','${info.tapainok}','${info.tapaiact}' )`, function (err, result, fields) {
         if (err) {
             callback(err, null);
         } else {

@@ -264,6 +264,25 @@
 
                 </div>
 
+                <label for="Titulo">Tapa con Identificacion Visible:</label>
+                <div class="row">
+                    
+
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad OK:</label>
+                        <input type="text" class="form-control" id="tapaok" value="<%=data.tapaiok%>" name="tapaiok" readonly>
+                    </div>
+                    <div class="form-group col-lg-3" id='divplat'>
+                        <label for="Titulo">Cantidad NOK:</label>
+                        <input type="text" class="form-control" id="tapanok" value="<%=data.tapainok%>" name="tapainok" readonly>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="Titulo">Actividades Realizadas:</label>
+                        <input type="text" class="form-control" id="tapaact" value="<%=data.tapaiact%>" name="tapaiact" readonly>
+                    </div>
+
+                </div>
+
 
 
 
@@ -354,33 +373,40 @@ function printJSPDF() {
 
 
 
-        // Tabla externa
-        doc.rect(30, 50, 215, 132)
-        doc.line(120, 50, 120, 182) //vertical line
-        doc.line(160, 50, 160, 182) //vertical line
-        doc.line(140, 56, 140, 182) //vertical line
+        // Draw the table outline
+        doc.rect(30, 50, 215, 144); // Adjusted height to fit 10 equal rows
 
-        doc.text(135, 53, 'STATUS')
-        doc.setFontSize(6)
-        doc.text(125, 55, '[CANTIDAD DE MANDRILES]')
-        doc.setFontSize(8)
-        doc.text(128, 59, 'OK')
-        doc.text(147, 59, 'NOK')
-        doc.line(120, 56, 160, 56) // horizontal line
-         doc.line(30, 60, 245, 60) // horizontal line
+        // Vertical lines
+        doc.line(120, 50, 120, 194); // Adjusted height
+        doc.line(160, 50, 160, 194); // Adjusted height
+        doc.line(140, 56, 140, 194); // Adjusted height
 
-        doc.text(65, 56, 'ACTIVIDAD')
-        doc.text(180, 56, 'ACTIVIDADES REALIZADAS')
-        doc.line(30, 73, 245, 73) // horizontal line
-        doc.line(30, 85, 245, 85) // horizontal line
-        doc.line(30, 97, 245, 97) // horizontal line
-        doc.line(30, 109, 245, 109) // horizontal line
-        doc.line(30, 121, 245, 121) // horizontal line
-        doc.line(30, 133, 245, 133) // horizontal line
-        doc.line(30, 145, 245, 145) // horizontal line
-        doc.line(30, 157, 245, 157) // horizontal line
-        doc.line(30, 169, 245, 169) // horizontal line
+        // Header
+        doc.text(135, 53, 'STATUS');
+        doc.setFontSize(6);
+        doc.text(125, 55, '[CANTIDAD DE MANDRILES]');
+        doc.setFontSize(8);
+        doc.text(128, 59, 'OK');
+        doc.text(147, 59, 'NOK');
+        doc.line(120, 56, 160, 56); // Horizontal line
+        doc.line(30, 60, 245, 60); // Horizontal line
 
+        // Column titles
+        doc.text(65, 56, 'ACTIVIDAD');
+        doc.text(180, 56, 'ACTIVIDADES REALIZADAS');
+
+        // Rows (Each row height is 12)
+        doc.line(30, 73, 245, 73); // Row 1
+        doc.line(30, 85, 245, 85); // Row 2
+        doc.line(30, 97, 245, 97); // Row 3
+        doc.line(30, 109, 245, 109); // Row 4
+        doc.line(30, 121, 245, 121); // Row 5
+        doc.line(30, 133, 245, 133); // Row 6
+        doc.line(30, 145, 245, 145); // Row 7
+        doc.line(30, 157, 245, 157); // Row 8
+        doc.line(30, 169, 245, 169); // Row 9
+        doc.line(30, 181, 245, 181); // Row 10
+        doc.line(30, 194, 245, 194); // Final row boundary
 
         
 
@@ -444,23 +470,29 @@ function printJSPDF() {
         doc.text(162, 176, '<%=data.bossact%>')
 
 
+        doc.text(33, 188, 'TAPA CON IDENTIFICACION VISIBLE')
+        doc.text(128, 188, '<%=data.tapaiok%>')
+        doc.text(148, 188, '<%=data.tapainok%>')
+        doc.text(162, 188, '<%=data.tapaiact%>')
+
+
 
 
         doc.setFontSize(8)
         doc.setFontType('normal') 
-        doc.text(180, 190, 'FECHA DE REALIZACION:_____________________')
-        doc.text(220, 190, '<%=fechaAltaFormatted%>')
+        doc.text(180, 200, 'FECHA DE REALIZACION:_____________________')
+        doc.text(220, 200, '<%=fechaAltaFormatted%>')
 
 
         doc.setFontSize(8)
         doc.setFontType('normal')
-        doc.text(60, 190, 'REALIZO:_________________________________________________________')
-        doc.text(75, 190, '<%=data.emp_id%>')
+        doc.text(60, 200, 'REALIZO:_________________________________________________________')
+        doc.text(75, 200, '<%=data.emp_id%>')
 
 
-        doc.text(100, 197, 'Asegura que todos los mandriles esten en buen estado.')
-        doc.text(220, 200, 'QD-C4-P00-I01-F04')
-        doc.text(190, 205, 'Fecha de Revision (MM/DD/YY): 08/17/2020)')
+        doc.text(100, 206, 'Asegura que todos los mandriles esten en buen estado.')
+        doc.text(220, 208, 'QD-C4-P00-I01-F04')
+        // doc.text(190, 212, 'Fecha de Revision (MM/DD/YY): 08/17/2020)')
         //  Imagen barra
        // doc.addImage(logo, 'PNG', '130', 0, 150, 7, undefined, 'FAST')
 
